@@ -1,0 +1,74 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Premium Plywood Sheet",
+      "description": "High-quality plywood sheet perfect for construction and furniture making. Features excellent durability and smooth finish.",
+      "price": 49.99,
+      "image": "/media/products/plywood-1.jpg",
+      "category": 1,
+      "panel_type": "LP",
+      "technical_specs": {
+        "thickness": "18mm",
+        "dimensions": "1220x2440mm",
+        "weight": "25kg",
+        "material": "Poplar",
+        "grade": "Premium"
+      },
+      "stock_quantity": 100,
+      "min_stock_threshold": 10,
+      "is_active": true,
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Hardwood Flooring Panel",
+      "description": "Premium hardwood flooring panel with natural grain patterns. Ideal for residential and commercial spaces.",
+      "price": 79.99,
+      "image": "/media/products/flooring-1.jpg",
+      "category": 2,
+      "panel_type": "MF",
+      "technical_specs": {
+        "thickness": "12mm",
+        "dimensions": "185x1200mm",
+        "weight": "18kg",
+        "material": "Oak",
+        "finish": "Matte"
+      },
+      "stock_quantity": 75,
+      "min_stock_threshold": 15,
+      "is_active": true,
+      "created_at": "2023-01-10T00:00:00.000Z",
+      "updated_at": "2023-01-10T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Marine Grade Plywood",
+      "description": "Specially treated plywood designed to resist water and humidity. Perfect for marine applications and outdoor furniture.",
+      "price": 89.99,
+      "image": "/media/products/marine-plywood.jpg",
+      "category": 1,
+      "panel_type": "MH",
+      "technical_specs": {
+        "thickness": "15mm",
+        "dimensions": "1220x2440mm",
+        "weight": "28kg",
+        "material": "Marine-treated wood",
+        "waterproof": "Yes"
+      },
+      "stock_quantity": 50,
+      "min_stock_threshold": 8,
+      "is_active": true,
+      "created_at": "2023-02-05T00:00:00.000Z",
+      "updated_at": "2023-02-05T00:00:00.000Z"
+    }
+  }
+] 

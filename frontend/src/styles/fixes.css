@@ -1,0 +1,32 @@
+/* Image background fixes */
+.product-image-container {
+  background-color: white !important;
+}
+
+.product-image {
+  background-color: white !important;
+  object-fit: contain !important;
+}
+
+/* Fix for ProductCard black background in grid view */
+.product-card .relative.pt-\[100\%\] {
+  background-color: white !important;
+}
+
+.product-card img,
+.group img,
+img.object-contain {
+  background-color: white !important;
+  object-fit: contain !important;
+}
+
+/* Force white background for all product images */
+[class*="product"] img,
+[class*="Product"] img {
+  background-color: white !important;
+}
+
+/* Fix for any image container with bg-gray-100 class causing black background */
+.bg-gray-100 {
+  background-color: white !important;
+} 

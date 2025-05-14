@@ -1,0 +1,240 @@
+/* Responsive styling to fix zoom-related issues */
+
+/* Fix for full height and width containers */
+.h-screen, 
+.min-h-screen {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+/* Fix for various screen sizes */
+@media screen and (max-width: 640px) {
+  .container {
+    width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .xs-hidden {
+    display: none !important;
+  }
+  
+  .xs-stack {
+    flex-direction: column !important;
+  }
+  
+  .xs-full-width {
+    width: 100% !important;
+  }
+}
+
+/* Wide screen optimizations */
+@media screen and (min-width: 1600px) {
+  .container {
+    max-width: 1400px !important;
+  }
+  
+  .wide-screen-padding {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+  
+  .wide-screen-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  }
+}
+
+/* Zoom level fixes */
+@media screen and (max-resolution: 120dpi) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Ensure tables remain responsive at all zoom levels */
+.responsive-table {
+  min-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area for iOS and other devices with notches */
+@supports(padding: max(0px)) {
+  .safe-padding-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+  
+  .safe-padding-top {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-inset-left {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+  }
+  
+  .safe-area-inset-right {
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+  }
+}
+
+/* Force sidebar to extend to full height even when zoomed out */
+.admin-sidebar, 
+#sidebar {
+  min-height: 100vh !important;
+  height: 100% !important;
+}
+
+/* Fix for dashboard elements at different zoom levels */
+.dashboard-card {
+  min-width: 200px;
+  height: auto !important;
+  min-height: 100px;
+}
+
+/* Fix for user table at different zoom levels */
+.user-table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 600px;
+}
+
+/* Ensure scroll works properly across browsers */
+html, body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Add spacing adjustment for mobile screens */
+@media screen and (max-width: 768px) {
+  .spacing-adjustment {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  .mobile-text-center {
+    text-align: center !important;
+  }
+  
+  .mobile-center {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+/* Tablet specific adjustments */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .tablet-adjust {
+    padding: 1.5rem !important;
+  }
+  
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Add height adjustment for short screens */
+@media screen and (max-height: 600px) {
+  .sidebar-nav {
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  
+  .content-height-adjust {
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  
+  .short-screen-adjust {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+/* Prevent content shifting when scrollbars appear/disappear */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Ensure buttons remain properly sized */
+.responsive-button {
+  min-width: fit-content;
+  white-space: nowrap;
+}
+
+/* Fix for flex items that need to wrap but maintain alignment */
+.flex-wrap-fix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Print styles for better printing */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+  
+  .print-full-width {
+    width: 100% !important;
+  }
+  
+  .print-color-adjust {
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-support {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+/* Image aspect ratio fixes */
+.img-aspect-ratio {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.img-aspect-ratio img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+} 

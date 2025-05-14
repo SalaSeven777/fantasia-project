@@ -1,0 +1,52 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Plywood",
+      "description": "High-quality plywood sheets for construction and furniture making",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Flooring",
+      "description": "Premium flooring solutions for residential and commercial spaces",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 3, 
+    "fields": {
+      "name": "Cabinets",
+      "description": "Customizable cabinet solutions for kitchens and bathrooms",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+      "name": "Furniture",
+      "description": "Ready-to-assemble furniture pieces made from premium materials",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name": "Accessories",
+      "description": "Hardware, finishes, and accessories for wood products",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  }
+] 
