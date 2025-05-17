@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { User, UserRole } from '../../types';
 import { apiService } from '../../services/api';
+import AdminLayout from '../../components/AdminLayout';
 
 // Extend the base User type with additional properties
 interface ExtendedUser extends User {
   last_active?: string;
+  username: string;
+  isAuthenticated: boolean;
+  date_joined: string;
 }
 
 interface UserFormData {
@@ -33,6 +37,8 @@ const UserManagement: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserFormData>(initialFormData);
+  const [filterRole, setFilterRole] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -60,6 +66,70 @@ const UserManagement: React.FC = () => {
       } catch (err) {
         console.error('Error fetching users:', err);
         setError('Failed to load users. Please try again later.');
+        
+        // Use mock data when API fails
+        setUsers([
+          { 
+            id: 1, 
+            firstName: 'John', 
+            lastName: 'Doe', 
+            email: 'john@example.com', 
+            role: 'AD', 
+            is_active: true, 
+            last_active: '2023-07-15T08:30:00',
+            username: 'johndoe',
+            isAuthenticated: true,
+            date_joined: '2023-01-15T08:30:00'
+          },
+          { 
+            id: 2, 
+            firstName: 'Jane', 
+            lastName: 'Smith', 
+            email: 'jane@example.com', 
+            role: 'CO', 
+            is_active: true, 
+            last_active: '2023-07-14T14:20:00',
+            username: 'janesmith',
+            isAuthenticated: true,
+            date_joined: '2023-02-10T10:15:00'
+          },
+          { 
+            id: 3, 
+            firstName: 'Mike', 
+            lastName: 'Johnson', 
+            email: 'mike@example.com', 
+            role: 'WM', 
+            is_active: true, 
+            last_active: '2023-07-14T11:15:00',
+            username: 'mikej',
+            isAuthenticated: true,
+            date_joined: '2023-03-05T14:30:00'
+          },
+          { 
+            id: 4, 
+            firstName: 'Sarah', 
+            lastName: 'Williams', 
+            email: 'sarah@example.com', 
+            role: 'DA', 
+            is_active: false, 
+            last_active: '2023-07-10T09:45:00',
+            username: 'sarahw',
+            isAuthenticated: false,
+            date_joined: '2023-04-20T09:00:00'
+          },
+          { 
+            id: 5, 
+            firstName: 'David', 
+            lastName: 'Brown', 
+            email: 'david@example.com', 
+            role: 'BM', 
+            is_active: true, 
+            last_active: '2023-07-13T16:30:00',
+            username: 'davidb',
+            isAuthenticated: true,
+            date_joined: '2023-05-15T11:45:00'
+          },
+        ]);
       } finally {
         setLoading(false);
       }
@@ -197,258 +267,306 @@ const UserManagement: React.FC = () => {
     }
   };
 
-  // Helper to get first name (handles both naming conventions)
   const getFirstName = (user: ExtendedUser): string => {
-    return user.first_name || user.firstName || '';
+    return user.firstName || user.first_name || '';
   };
 
-  // Helper to get last name (handles both naming conventions)
   const getLastName = (user: ExtendedUser): string => {
-    return user.last_name || user.lastName || '';
+    return user.lastName || user.last_name || '';
   };
+
+  const getRoleBadgeClass = (role: string): string => {
+    switch (role) {
+      case 'AD': return 'admin-badge admin-badge-primary';
+      case 'CO': return 'admin-badge admin-badge-success';
+      case 'WM': return 'admin-badge admin-badge-warning';
+      case 'DA': return 'admin-badge admin-badge-info';
+      case 'BM': return 'admin-badge admin-badge-warning';
+      case 'CL': return 'admin-badge';
+      default: return 'admin-badge';
+    }
+  };
+
+  const formatDate = (dateString?: string): string => {
+    if (!dateString) return 'Never';
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  // Filter users based on role and search term
+  const filteredUsers = users.filter(user => {
+    const matchesRole = filterRole === 'all' || user.role === filterRole;
+    const fullName = `${getFirstName(user)} ${getLastName(user)}`.toLowerCase();
+    const matchesSearch = searchTerm === '' || 
+      fullName.includes(searchTerm.toLowerCase()) || 
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchesRole && matchesSearch;
+  });
 
   return (
-    <div className="py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-primary-dark-blue-900">User Management</h1>
-          <button
-            className="bg-primary-dark-blue-600 text-white px-4 py-2 rounded-md hover:bg-primary-dark-blue-700 responsive-button"
-            onClick={handleAddUser}
-          >
-            Add User
-          </button>
-        </div>
-        
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-dark-blue-600"></div>
-          </div>
-        ) : error ? (
-          <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4">
-            <div className="flex">
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
+    <AdminLayout>
+      <div className="admin-page-header">
+        <h1 className="admin-page-title">User Management</h1>
+        <button
+          className="admin-button-primary"
+          onClick={handleAddUser}
+        >
+          Add User
+        </button>
+      </div>
+      
+      {/* Filters and Search */}
+      <div className="admin-filters">
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+          <div className="flex-1 mb-3 sm:mb-0">
+            <div className="admin-search">
+              <input
+                type="text"
+                placeholder="Search users..."
+                className="admin-search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="admin-search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
               </div>
             </div>
           </div>
-        ) : (
-        <div className="mt-6">
-          <div className="bg-white shadow overflow-hidden sm:rounded-lg table-container">
-            <table className="min-w-full divide-y divide-gray-200 table-responsive user-table">
-              <thead className="bg-primary-dark-blue-50">
+          <div className="w-full sm:w-auto">
+            <select 
+              className="admin-select"
+              value={filterRole}
+              onChange={(e) => setFilterRole(e.target.value)}
+            >
+              <option value="all">All Roles</option>
+              <option value="AD">Administrators</option>
+              <option value="CO">Commercial</option>
+              <option value="WM">Warehouse Managers</option>
+              <option value="DA">Delivery Agents</option>
+              <option value="BM">Billing Managers</option>
+              <option value="CL">Clients</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      {loading ? (
+        <div className="flex justify-center items-center p-8">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : error ? (
+        <div className="alert alert-danger" role="alert">
+          <p>{error}</p>
+        </div>
+      ) : (
+      <div className="mt-4">
+        <div className="admin-table-container">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th className="d-none d-md-table-cell">Joined</th>
+                <th className="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.length === 0 ? (
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Email
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Role
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Joined
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-primary-dark-blue-900 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <td colSpan={6} className="text-center py-4">
+                    No users found.
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="h-10 w-10 flex-shrink-0 bg-primary-dark-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-sm font-medium text-primary-dark-blue-900">
-                            {getFirstName(user).charAt(0)}{getLastName(user).charAt(0)}
-                          </span>
+              ) : (
+                filteredUsers.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center justify-content-center w-10 h-10 rounded-full bg-brown-100 text-brown-800 font-medium mr-3">
+                          {getFirstName(user).charAt(0)}{getLastName(user).charAt(0)}
                         </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
+                        <div>
+                          <div className="font-medium">
                             {getFirstName(user)} {getLastName(user)}
                           </div>
                           {user.username && (
-                            <div className="text-sm text-gray-500">
-                              {user.username ? `@${user.username}` : 'No username'}
+                            <div className="text-sm text-gray-500 d-none d-sm-block">
+                              @{user.username}
                             </div>
                           )}
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{user.email}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary-dark-blue-100 text-primary-dark-blue-900">
+                    <td>{user.email}</td>
+                    <td>
+                      <span className={getRoleBadgeClass(user.role)}>
                         {getRoleDisplay(user.role)}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                      }`}>
+                    <td>
+                      <span className={user.is_active ? "admin-badge admin-badge-success" : "admin-badge admin-badge-danger"}>
                         {user.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="d-none d-md-table-cell">
                       {user.date_joined 
                         ? new Date(user.date_joined).toLocaleDateString() 
                         : 'Unknown'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button 
-                        onClick={() => handleEditUser(user.id)}
-                        className="text-primary-dark-blue-600 hover:text-primary-dark-blue-900 mr-4"
-                      >
-                        Edit
-                      </button>
-                      <button 
-                        onClick={() => handleDeleteUser(user.id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Delete
-                      </button>
+                    <td className="text-right">
+                      <div className="admin-table-actions">
+                        <button 
+                          onClick={() => handleEditUser(user.id)}
+                          className="admin-button-secondary-sm"
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteUser(user.id)}
+                          className="admin-button-danger-sm"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-        )}
       </div>
+      )}
 
       {/* Modal for adding/editing user */}
       {showModal && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-primary-dark-blue-900">
-                      {isEditing ? 'Edit User' : 'Add New User'}
-                    </h3>
-                    <div className="mt-4">
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                              First Name
-                            </label>
-                            <input
-                              type="text"
-                              name="firstName"
-                              id="firstName"
-                              required
-                              className="mt-1 focus:ring-primary-dark-blue-500 focus:border-primary-dark-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                              value={formData.firstName}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                          <div>
-                            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                              Last Name
-                            </label>
-                            <input
-                              type="text"
-                              name="lastName"
-                              id="lastName"
-                              required
-                              className="mt-1 focus:ring-primary-dark-blue-500 focus:border-primary-dark-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                              value={formData.lastName}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            required
-                            className="mt-1 focus:ring-primary-dark-blue-500 focus:border-primary-dark-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            {isEditing ? 'Password (leave blank to keep current)' : 'Password'}
-                          </label>
-                          <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            required={!isEditing}
-                            className="mt-1 focus:ring-primary-dark-blue-500 focus:border-primary-dark-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                            Role
-                          </label>
-                          <select
-                            id="role"
-                            name="role"
-                            required
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-dark-blue-500 focus:border-primary-dark-blue-500 sm:text-sm rounded-md"
-                            value={formData.role}
-                            onChange={handleInputChange}
-                          >
-                            <option value="CL">Client</option>
-                            <option value="CO">Commercial</option>
-                            <option value="DA">Delivery Agent</option>
-                            <option value="WM">Warehouse Manager</option>
-                            <option value="BM">Billing Manager</option>
-                            <option value="AD">Administrator</option>
-                          </select>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="is_active"
-                            name="is_active"
-                            type="checkbox"
-                            checked={formData.is_active}
-                            onChange={handleInputChange}
-                            className="h-4 w-4 text-primary-dark-blue-600 focus:ring-primary-dark-blue-500 border-gray-300 rounded"
-                          />
-                          <label htmlFor="is_active" className="ml-2 block text-sm text-gray-700">
-                            Active
-                          </label>
-                        </div>
-                      </form>
+        <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-50">
+          <div className="flex items-center justify-center min-h-screen p-4">
+            <div className="admin-modal">
+              <div className="admin-modal-header">
+                <h3 className="admin-modal-title">
+                  {isEditing ? 'Edit User' : 'Add New User'}
+                </h3>
+              </div>
+              <div className="admin-modal-content">
+                <form className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="firstName" className="admin-form-label">
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                        required
+                        className="admin-form-control"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="lastName" className="admin-form-label">
+                        Last Name
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        required
+                        className="admin-form-control"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
-                </div>
+                  <div>
+                    <label htmlFor="email" className="admin-form-label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      required
+                      className="admin-form-control"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="password" className="admin-form-label">
+                      {isEditing ? 'New Password (leave blank to keep current)' : 'Password'}
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required={!isEditing}
+                      className="admin-form-control"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="role" className="admin-form-label">
+                      Role
+                    </label>
+                    <select
+                      id="role"
+                      name="role"
+                      required
+                      className="admin-form-control"
+                      value={formData.role}
+                      onChange={handleInputChange}
+                    >
+                      <option value="CL">Client</option>
+                      <option value="CO">Commercial</option>
+                      <option value="DA">Delivery Agent</option>
+                      <option value="WM">Warehouse Manager</option>
+                      <option value="BM">Billing Manager</option>
+                      <option value="AD">Administrator</option>
+                    </select>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <input
+                      id="is_active"
+                      name="is_active"
+                      type="checkbox"
+                      checked={formData.is_active}
+                      onChange={handleInputChange}
+                      className="h-4 w-4"
+                    />
+                    <label htmlFor="is_active" className="ml-2 block text-sm">
+                      Active
+                    </label>
+                  </div>
+                </form>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="admin-modal-footer">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-dark-blue-600 text-base font-medium text-white hover:bg-primary-dark-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="admin-btn admin-btn-primary"
                   onClick={handleSubmit}
                 >
-                  {isEditing ? 'Update' : 'Create'}
+                  {isEditing ? 'Update User' : 'Create User'}
                 </button>
                 <button
                   type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="admin-btn admin-btn-secondary"
                   onClick={closeModal}
                 >
                   Cancel
@@ -458,7 +576,7 @@ const UserManagement: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+    </AdminLayout>
   );
 };
 

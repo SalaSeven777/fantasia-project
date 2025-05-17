@@ -1,240 +1,208 @@
 import React, { useState } from 'react';
-import { Card, Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faRedo } from '@fortawesome/free-solid-svg-icons';
 import AdminLayout from '../../components/AdminLayout';
 
-interface SystemSettings {
-  siteName: string;
-  siteDescription: string;
-  maintenanceMode: boolean;
-  emailNotifications: boolean;
-  defaultLanguage: string;
-  timezone: string;
-  itemsPerPage: number;
-  backupFrequency: string;
-  logRetention: number;
+interface ConfigItem {
+  id: number;
+  key: string;
+  value: string;
+  description: string;
+  category: string;
 }
 
 const SystemConfig: React.FC = () => {
-  const [settings, setSettings] = useState<SystemSettings>({
-    siteName: 'SME FANTASIA',
-    siteDescription: 'Handcrafted Wood Products Management System',
-    maintenanceMode: false,
-    emailNotifications: true,
-    defaultLanguage: 'en',
-    timezone: 'UTC',
-    itemsPerPage: 10,
-    backupFrequency: 'daily',
-    logRetention: 30
+  const [configs, setConfigs] = useState<ConfigItem[]>([
+    { 
+      id: 1, 
+      key: 'SMTP_HOST', 
+      value: 'smtp.fantasia.com', 
+      description: 'SMTP server for outgoing emails', 
+      category: 'Email' 
+    },
+    { 
+      id: 2, 
+      key: 'SMTP_PORT', 
+      value: '587', 
+      description: 'SMTP port for email server', 
+      category: 'Email' 
+    },
+    { 
+      id: 3, 
+      key: 'ORDER_PREFIX', 
+      value: 'FB-', 
+      description: 'Prefix for order numbers', 
+      category: 'Orders' 
+    },
+    { 
+      id: 4, 
+      key: 'MAX_PRODUCTS_PER_PAGE', 
+      value: '24', 
+      description: 'Maximum products displayed per page', 
+      category: 'Products' 
+    },
+    { 
+      id: 5, 
+      key: 'DEFAULT_CURRENCY', 
+      value: 'USD', 
+      description: 'Default currency for prices', 
+      category: 'Pricing' 
+    }
+  ]);
+  
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editValue, setEditValue] = useState('');
+  const [filter, setFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('All');
+  
+  const categories = ['All', ...Array.from(new Set(configs.map(config => config.category)))];
+  
+  const filteredConfigs = configs.filter(config => {
+    const matchesText = config.key.toLowerCase().includes(filter.toLowerCase()) || 
+                      config.description.toLowerCase().includes(filter.toLowerCase());
+    const matchesCategory = categoryFilter === 'All' || config.category === categoryFilter;
+    return matchesText && matchesCategory;
   });
-
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    setSettings(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }));
+  
+  const handleEdit = (id: number) => {
+    const config = configs.find(c => c.id === id);
+    if (config) {
+      setEditingId(id);
+      setEditValue(config.value);
+    }
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically save to backend
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+  
+  const handleSave = (id: number) => {
+    setConfigs(configs.map(config => 
+      config.id === id ? {...config, value: editValue} : config
+    ));
+    setEditingId(null);
   };
-
-  const handleReset = () => {
-    // Reset to default values
-    setSettings({
-      siteName: 'SME FANTASIA',
-      siteDescription: 'Handcrafted Wood Products Management System',
-      maintenanceMode: false,
-      emailNotifications: true,
-      defaultLanguage: 'en',
-      timezone: 'UTC',
-      itemsPerPage: 10,
-      backupFrequency: 'daily',
-      logRetention: 30
-    });
+  
+  const handleCancel = () => {
+    setEditingId(null);
   };
 
   return (
     <AdminLayout>
-      <div className="admin-header">
-        <h1 className="admin-title">System Configuration</h1>
+      <div className="admin-page-header">
+        <h1 className="admin-page-title">System Configuration</h1>
+        <button className="admin-button-primary">
+          Add New Config
+        </button>
       </div>
-
-      {showSuccess && (
-        <Alert variant="success" className="mb-4">
-          Settings saved successfully!
-        </Alert>
-      )}
-
-      <Form onSubmit={handleSubmit}>
-        <Row className="g-4">
-          <Col md={6}>
-            <Card className="admin-card">
-              <Card.Header className="admin-card-header">
-                <Card.Title className="admin-card-title">General Settings</Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <Form.Group className="mb-3">
-                  <Form.Label>Site Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="siteName"
-                    value={settings.siteName}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Site Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    name="siteDescription"
-                    value={settings.siteDescription}
-                    onChange={handleInputChange}
-                    rows={3}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Check
-                    type="switch"
-                    name="maintenanceMode"
-                    checked={settings.maintenanceMode}
-                    onChange={handleInputChange}
-                    label="Maintenance Mode"
-                  />
-                </Form.Group>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={6}>
-            <Card className="admin-card">
-              <Card.Header className="admin-card-header">
-                <Card.Title className="admin-card-title">System Settings</Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <Form.Group className="mb-3">
-                  <Form.Label>Default Language</Form.Label>
-                  <Form.Select
-                    name="defaultLanguage"
-                    value={settings.defaultLanguage}
-                    onChange={handleInputChange}
-                  >
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Timezone</Form.Label>
-                  <Form.Select
-                    name="timezone"
-                    value={settings.timezone}
-                    onChange={handleInputChange}
-                  >
-                    <option value="UTC">UTC</option>
-                    <option value="EST">EST</option>
-                    <option value="PST">PST</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Items Per Page</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="itemsPerPage"
-                    value={settings.itemsPerPage}
-                    onChange={handleInputChange}
-                    min={5}
-                    max={100}
-                  />
-                </Form.Group>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={6}>
-            <Card className="admin-card">
-              <Card.Header className="admin-card-header">
-                <Card.Title className="admin-card-title">Backup & Maintenance</Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <Form.Group className="mb-3">
-                  <Form.Label>Backup Frequency</Form.Label>
-                  <Form.Select
-                    name="backupFrequency"
-                    value={settings.backupFrequency}
-                    onChange={handleInputChange}
-                  >
-                    <option value="hourly">Hourly</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Log Retention (days)</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="logRetention"
-                    value={settings.logRetention}
-                    onChange={handleInputChange}
-                    min={1}
-                    max={365}
-                  />
-                </Form.Group>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={6}>
-            <Card className="admin-card">
-              <Card.Header className="admin-card-header">
-                <Card.Title className="admin-card-title">Notifications</Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <Form.Group className="mb-3">
-                  <Form.Check
-                    type="switch"
-                    name="emailNotifications"
-                    checked={settings.emailNotifications}
-                    onChange={handleInputChange}
-                    label="Email Notifications"
-                  />
-                </Form.Group>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-
-        <div className="d-flex justify-content-end gap-2 mt-4">
-          <Button 
-            variant="outline-secondary" 
-            onClick={handleReset}
-            className="admin-btn admin-btn-outline"
-          >
-            <FontAwesomeIcon icon={faRedo} className="me-2" />
-            Reset to Defaults
-          </Button>
-          <Button 
-            type="submit"
-            className="admin-btn admin-btn-primary"
-          >
-            <FontAwesomeIcon icon={faSave} className="me-2" />
-            Save Changes
-          </Button>
+      
+      <div className="admin-filters">
+        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+          <div className="flex-1 mb-3 md:mb-0">
+            <div className="admin-search">
+              <input
+                type="text"
+                placeholder="Search configurations..."
+                className="admin-search-input"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <div className="admin-search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <div className="w-full md:w-auto">
+            <select 
+              className="admin-select"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              {categories.map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
+          </div>
         </div>
-      </Form>
+      </div>
+      
+      <div className="mt-4">
+        <div className="admin-table-container">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th className="d-none d-md-table-cell">Description</th>
+                <th className="d-none d-sm-table-cell">Category</th>
+                <th className="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredConfigs.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-4">
+                    No configurations found matching your criteria.
+                  </td>
+                </tr>
+              ) : (
+                filteredConfigs.map(config => (
+                  <tr key={config.id}>
+                    <td className="font-medium">{config.key}</td>
+                    <td>
+                      {editingId === config.id ? (
+                        <input 
+                          type="text" 
+                          className="admin-form-control"
+                          value={editValue}
+                          onChange={(e) => setEditValue(e.target.value)}
+                        />
+                      ) : (
+                        config.value
+                      )}
+                    </td>
+                    <td className="d-none d-md-table-cell">{config.description}</td>
+                    <td className="d-none d-sm-table-cell">
+                      <span className="admin-badge admin-badge-primary">
+                        {config.category}
+                      </span>
+                    </td>
+                    <td className="text-right">
+                      <div className="admin-table-actions">
+                        {editingId === config.id ? (
+                          <>
+                            <button 
+                              onClick={() => handleSave(config.id)} 
+                              className="admin-button-secondary-sm"
+                            >
+                              Save
+                            </button>
+                            <button 
+                              onClick={handleCancel} 
+                              className="admin-button-danger-sm"
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button 
+                              onClick={() => handleEdit(config.id)} 
+                              className="admin-button-secondary-sm"
+                            >
+                              Edit
+                            </button>
+                            <button className="admin-button-danger-sm">
+                              Delete
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </AdminLayout>
   );
 };
