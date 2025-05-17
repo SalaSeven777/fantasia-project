@@ -51,7 +51,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           <Navbar.Brand as={Link} to="/admin" className="navbar-brand">Admin Panel</Navbar.Brand>
           <Navbar.Toggle aria-controls="admin-navbar-nav" />
           <Navbar.Collapse id="admin-navbar-nav">
-            <Nav className="me-auto d-none d-lg-flex">
+            <Nav className="me-auto">
               <Nav.Link 
                 as={Link} 
                 to="/admin/dashboard"
@@ -105,8 +105,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         </Container>
       </Navbar>
       
-      {/* Mobile sidebar */}
-      <div className={`admin-sidebar ${sidebarOpen ? 'show' : ''}`}>
+      {/* Mobile sidebar - only shown on small screens */}
+      <div className={`admin-sidebar d-lg-none ${sidebarOpen ? 'show' : ''}`}>
         <div className="admin-sidebar-header d-flex align-items-center justify-content-between p-3">
           <div className="admin-sidebar-brand-logo">Admin</div>
           <button 

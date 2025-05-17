@@ -165,6 +165,24 @@
   transition: margin-left 0.3s ease;
 }
 
+/* Adjust content padding for better spacing */
+@media (min-width: 992px) {
+  .admin-content {
+    margin-left: 0;
+    padding: 2rem;
+  }
+}
+
+/* Ensure admin page has nice spacing */
+.admin-page-header {
+  margin-bottom: 2rem;
+}
+
+/* Remove the margin-left adjustment for admin-content-expanded since we no longer need it */
+.admin-content-expanded {
+  margin-left: 0;
+}
+
 /* Admin Page Header */
 .admin-header {
   margin-bottom: 1.5rem;
@@ -924,10 +942,6 @@
   
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  
-  .admin-content {
-    margin-left: 280px;
   }
   
   .d-lg-none {
