@@ -53,7 +53,7 @@ import FinancialReports from '../pages/billing/FinancialReports';
 import NewInvoice from '../pages/billing/NewInvoice';
 
 // Admin Interface
-import AdminDashboard from '../pages/admin/Dashboard';
+import AdminDashboard from '../pages/admin/WoodThemedDashboard';
 import EnhancedDashboard from '../pages/admin/EnhancedDashboard';
 import UserManagement from '../pages/admin/UserManagement';
 import SystemConfig from '../pages/admin/SystemConfig';

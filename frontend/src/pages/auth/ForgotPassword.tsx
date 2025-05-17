@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiService } from '../../services/api';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import '../../../src/styles/wood-theme.css'; // Import the wood theme
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -50,70 +51,98 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-center text-2xl font-primary font-bold text-primary-900 mb-6">Reset Your Password</h2>
+    <>
+      <div className="wood-welcome-banner">
+        Welcome to SME FANTASIA
+      </div>
       
-      {success ? (
-        <div className="bg-success-color bg-opacity-10 p-4 rounded-md mb-6 text-success-color border border-success-color border-opacity-20">
-          <p className="text-sm font-medium">
-            Password reset instructions have been sent to your email.
-          </p>
-          <p className="text-sm mt-2">
-            If you don't receive an email within a few minutes, please check your spam folder.
-          </p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="bg-error-color bg-opacity-10 p-4 rounded-md mb-4 text-error-color border border-error-color border-opacity-20">
-              <p className="text-sm font-medium">{error}</p>
-            </div>
-          )}
+      <div className="wood-container">
+        <div className="wood-content space-y-5">
+          <div className="text-center">
+            <h1 className="wood-company-title">SME FANTASIA</h1>
+            <p className="wood-company-tagline">Premium products and services for your business needs</p>
+          </div>
           
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-primary-800 mb-1">
-              Email Address
-            </label>
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <EnvelopeIcon className="h-5 w-5 text-neutral-400" aria-hidden="true" />
+            <h2 className="wood-heading">Reset Your Password</h2>
+          </div>
+          
+          {success ? (
+            <div className="bg-green-50 p-4 rounded-md border border-green-200 text-wood-green-600">
+              <p className="font-medium">
+                Password reset instructions have been sent to your email.
+              </p>
+              <p className="mt-2">
+                If you don't receive an email within a few minutes, please check your spam folder.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {error && (
+                <div className="wood-error">
+                  {error}
+                </div>
+              )}
+              
+              <div>
+                <label htmlFor="email" className="wood-input-label">
+                  Email Address
+                </label>
+                <div className="relative rounded-md">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <EnvelopeIcon className="h-5 w-5 text-wood-neutral-500" aria-hidden="true" />
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="wood-input pl-10"
+                    placeholder="you@example.com"
+                  />
+                </div>
               </div>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 block w-full shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm border-neutral-300 rounded-md py-3"
-                placeholder="you@example.com"
-              />
-            </div>
-          </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-700 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
-            >
-              {loading ? 'Processing...' : 'Send Reset Instructions'}
-            </button>
-          </div>
-          
-          <div className="text-sm text-center">
-            <span className="text-neutral-500">Remember your password?</span>{' '}
-            <Link
-              to="/login"
-              className="font-medium text-primary-700 hover:text-primary-800 transition-colors"
-            >
-              Back to login
-            </Link>
-          </div>
-        </form>
-      )}
-    </div>
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="wood-btn wood-btn-primary wood-hover-lift"
+                >
+                  {loading ? 'Processing...' : 'Send Reset Instructions'}
+                </button>
+              </div>
+              
+              <div className="text-center">
+                <span className="wood-text-muted">Remember your password?</span>{' '}
+                <Link
+                  to="/login"
+                  className="wood-link"
+                >
+                  Back to login
+                </Link>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+      
+      <div className="wood-footer">
+        <div className="wood-footer-links">
+          <a href="#" className="wood-footer-link">Privacy Policy</a>
+          <span className="wood-text-muted">|</span>
+          <a href="#" className="wood-footer-link">Terms of Service</a>
+          <span className="wood-text-muted">|</span>
+          <a href="#" className="wood-footer-link">Contact Us</a>
+        </div>
+        <div className="wood-footer-copyright">
+          © 2023 SME FANTASIA. All rights reserved.
+        </div>
+      </div>
+    </>
   );
 };
 

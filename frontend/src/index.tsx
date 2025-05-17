@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './global.css';
-
-// Import i18n before App to ensure it's initialized
-import './i18n';
-
-import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
+
+// Import styles
+import './global.css';
+import './i18n'; // Import i18n before App to ensure it's initialized
+
+// Import Google Fonts for wood theme
+// @ts-ignore
+import WebFont from 'webfontloader';
+
+// Load fonts
+WebFont.load({
+  google: {
+    families: ['Poppins:400,500,600,700', 'Playfair Display:400,700']
+  }
+});
 
 // Set document direction based on saved language
 const savedLanguage = localStorage.getItem('i18nextLng') || localStorage.getItem('userLanguage');

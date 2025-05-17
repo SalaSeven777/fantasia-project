@@ -4,6 +4,7 @@ import { productService } from '../../services/product.service';
 import { apiService } from '../../services/api';
 import { Product, Category } from '../../types/product.types';
 import ProductCard from '../../components/ProductCard';
+import '../../styles/wood-client-theme.css'; // Import the wood client theme
 import { 
   ArrowLeftIcon, 
   ArrowRightIcon, 
@@ -20,6 +21,12 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 // Enhanced category with real count
 interface EnhancedCategory extends Category {
   calculatedProductCount: number;
+}
+
+// Extended product interface with discount properties
+interface ProductWithDiscount extends Product {
+  original_price?: number;
+  discount_percentage?: number;
 }
 
 // Helper function to get complete image URL
@@ -55,9 +62,9 @@ const formatPrice = (price: any): string => {
 };
 
 // Create a discount simulator for products
-const simulateDiscount = (product: Product) => {
+const simulateDiscount = (product: Product): ProductWithDiscount => {
   // If product doesn't have price, return original product
-  if (!product.price) return product;
+  if (!product.price) return product as ProductWithDiscount;
   
   // Calculate a simulated original price (25% higher)
   const originalPrice = product.price * 1.25;
@@ -75,7 +82,7 @@ const Home: React.FC = () => {
   const [newArrivals, setNewArrivals] = useState<Product[]>([]);
   const [bestSellers, setBestSellers] = useState<Product[]>([]);
   const [categories, setCategories] = useState<EnhancedCategory[]>([]);
-  const [dealOfTheDay, setDealOfTheDay] = useState<Product | null>(null);
+  const [dealOfTheDay, setDealOfTheDay] = useState<ProductWithDiscount | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -246,14 +253,56 @@ const Home: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
   };
 
+  // Handle add to cart
+  const onAddToCart = async (productId: number) => {
+    try {
+      const product = [...featuredProducts, ...newArrivals, ...bestSellers]
+        .find(p => p.id === productId);
+        
+      if (!product) return;
+      
+      // Import cart service dynamically
+      const { cartService } = await import('../../services/cart.service');
+      
+      // Create a normalized product object with all required fields
+      const normalizedProduct = {
+        id: product.id,
+        title: product.name, 
+        description: product.description || '',
+        price: typeof product.price === 'number' ? product.price : 0,
+        image: product.image || '',
+        thumbnail: product.image || '',
+        category: product.category || '',
+        created_at: product.created_at || new Date().toISOString(),
+        updated_at: product.updated_at || new Date().toISOString(),
+        finalPrice: product.finalPrice || product.sale_price || product.price,
+        discountPercentage: product.discount || 0,
+        stock: product.stock_quantity || 10,
+        images: [product.image || ''],
+        brand: 'Generic',
+        _name: product.name,
+        _sale_price: product.sale_price || product.price,
+        _stock_quantity: product.stock_quantity || 10,
+        _panel_type: product.panel_type || '',
+        _is_active: true
+      };
+      
+      console.log('Adding product to cart:', normalizedProduct);
+      cartService.addToCart(normalizedProduct, 1);
+      
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };
+
   return (
     <div className="bg-white">
-      {/* Hero Slider */}
-      <div className="relative overflow-hidden">
+      {/* Hero Slider with Wood Theme */}
+      <div className="wood-hero-section relative overflow-hidden">
         <div className="relative h-[500px] md:h-[600px] overflow-hidden">
-          {/* Slider images */}
+          {/* Slider images with wood theme */}
           <div
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
+            className={`wood-hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
               currentSlide === 0 ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -262,22 +311,21 @@ const Home: React.FC = () => {
               alt="Premium Wood Collection"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-10"></div>
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-lg">
-                  <p className="text-white font-medium text-lg mb-3">
+                <div className="wood-hero-content">
+                  <p className="wood-hero-subtitle">
                     Discover our high-quality wood products
                   </p>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                  <h1 className="wood-hero-title">
                     Premium Wood Collection
                   </h1>
-                  <p className="text-white text-lg mb-6">
+                  <p className="wood-hero-description">
                     Find your perfect match for your next project
                   </p>
                   <Link
                     to="/products"
-                    className="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md transition-colors duration-300"
+                    className="wood-hero-button inline-block"
                   >
                     Shop Now
                   </Link>
@@ -287,7 +335,7 @@ const Home: React.FC = () => {
           </div>
 
           <div
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
+            className={`wood-hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
               currentSlide === 1 ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -296,22 +344,21 @@ const Home: React.FC = () => {
               alt="Custom Solutions"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-10"></div>
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-lg">
-                  <p className="text-white font-medium text-lg mb-3">
+                <div className="wood-hero-content">
+                  <p className="wood-hero-subtitle">
                     Tailored for your specific needs
                   </p>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                  <h1 className="wood-hero-title">
                     Custom Solutions
                   </h1>
-                  <p className="text-white text-lg mb-6">
+                  <p className="wood-hero-description">
                     Professional wood panels with premium quality
                   </p>
                   <Link
                     to="/products"
-                    className="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md transition-colors duration-300"
+                    className="wood-hero-button inline-block"
                   >
                     Shop Now
                   </Link>
@@ -321,7 +368,7 @@ const Home: React.FC = () => {
           </div>
 
           <div
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
+            className={`wood-hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
               currentSlide === 2 ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -330,22 +377,21 @@ const Home: React.FC = () => {
               alt="Sustainable Materials"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-10"></div>
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-lg">
-                  <p className="text-white font-medium text-lg mb-3">
+                <div className="wood-hero-content">
+                  <p className="wood-hero-subtitle">
                     Environmentally responsible choices
                   </p>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                  <h1 className="wood-hero-title">
                     Sustainable Materials
                   </h1>
-                  <p className="text-white text-lg mb-6">
+                  <p className="wood-hero-description">
                     Ethically sourced wood products for eco-conscious customers
                   </p>
                   <Link
                     to="/products"
-                    className="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md transition-colors duration-300"
+                    className="wood-hero-button inline-block"
                   >
                     Shop Now
                   </Link>
@@ -355,7 +401,7 @@ const Home: React.FC = () => {
           </div>
 
           <div
-              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
+              className={`wood-hero-slide absolute inset-0 w-full h-full transition-opacity duration-1000 transform ${
               currentSlide === 3 ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -364,22 +410,21 @@ const Home: React.FC = () => {
               alt="Innovative Designs"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-            <div className="absolute inset-0 bg-black bg-opacity-10"></div>
               <div className="absolute inset-0 flex items-center">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-lg">
-                  <p className="text-white font-medium text-lg mb-3">
-                    Modern solutions for modern needs
+                  <div className="wood-hero-content">
+                    <p className="wood-hero-subtitle">
+                      Modern solutions for modern needs
                     </p>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
-                    Innovative Designs
+                    <h1 className="wood-hero-title">
+                      Innovative Designs
                     </h1>
-                  <p className="text-white text-lg mb-6">
-                    Cutting-edge wood products with contemporary aesthetics
+                    <p className="wood-hero-description">
+                      Cutting-edge wood products with contemporary aesthetics
                     </p>
                     <Link
-                    to="/products"
-                    className="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md transition-colors duration-300"
+                      to="/products"
+                      className="wood-hero-button inline-block"
                     >
                       Shop Now
                     </Link>
@@ -389,332 +434,411 @@ const Home: React.FC = () => {
             </div>
         </div>
         
-        {/* Slider Controls */}
+        {/* Slider Controls with Wood Theme */}
         <div className="absolute inset-0 flex items-center justify-between px-4">
           <button
             onClick={prevSlide}
-            className="bg-white bg-opacity-70 hover:bg-primary-600 hover:text-white text-gray-800 rounded-full p-2 transition-colors duration-300"
+            className="wood-slider-control"
           >
             <ArrowLeftIcon className="h-6 w-6" />
           </button>
           <button
             onClick={nextSlide}
-            className="bg-white bg-opacity-70 hover:bg-primary-600 hover:text-white text-gray-800 rounded-full p-2 transition-colors duration-300"
+            className="wood-slider-control"
           >
             <ArrowRightIcon className="h-6 w-6" />
           </button>
         </div>
         
-        {/* Slider Indicators */}
+        {/* Slider Indicators with Wood Theme */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
           {sliderImages.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 w-8 rounded-full transition-colors duration-300 ${
-                index === currentSlide ? 'bg-primary-600' : 'bg-white bg-opacity-50'
+              className={`wood-slider-indicator ${
+                index === currentSlide ? 'active' : ''
               }`}
             />
           ))}
         </div>
       </div>
 
-      {/* Services Section */}
-      <div className="py-12 bg-white">
+      {/* Services Section with Wood Theme */}
+      <div className="wood-services-section">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="flex items-center p-4 border border-gray-200 rounded-md transition-all duration-300 hover:shadow-lg hover:border-primary-300">
-              <div className="mr-4 text-primary-600">
+            <div className="wood-service-card">
+              <div className="wood-service-icon">
                 <ShoppingCartIcon className="h-10 w-10" />
               </div>
-              <div>
-                <h3 className="font-medium text-gray-900">Free Shipping</h3>
-                <p className="text-sm text-gray-500">On all orders over $99</p>
+              <div className="wood-service-content">
+                <h3 className="wood-service-title">Free Shipping</h3>
+                <p className="wood-service-description">On all orders over $99</p>
               </div>
             </div>
-            <div className="flex items-center p-4 border border-gray-200 rounded-md transition-all duration-300 hover:shadow-lg hover:border-primary-300">
-              <div className="mr-4 text-primary-600">
+            <div className="wood-service-card">
+              <div className="wood-service-icon">
                 <TruckIcon className="h-10 w-10" />
               </div>
-              <div>
-                <h3 className="font-medium text-gray-900">Fast Delivery</h3>
-                <p className="text-sm text-gray-500">Nationwide shipping</p>
+              <div className="wood-service-content">
+                <h3 className="wood-service-title">Fast Delivery</h3>
+                <p className="wood-service-description">Nationwide shipping</p>
               </div>
             </div>
-            <div className="flex items-center p-4 border border-gray-200 rounded-md transition-all duration-300 hover:shadow-lg hover:border-primary-300">
-              <div className="mr-4 text-primary-600">
+            <div className="wood-service-card">
+              <div className="wood-service-icon">
                 <TagIcon className="h-10 w-10" />
               </div>
-              <div>
-                <h3 className="font-medium text-gray-900">Best Quality</h3>
-                <p className="text-sm text-gray-500">Premium materials</p>
+              <div className="wood-service-content">
+                <h3 className="wood-service-title">Best Quality</h3>
+                <p className="wood-service-description">Premium materials</p>
               </div>
             </div>
-            <div className="flex items-center p-4 border border-gray-200 rounded-md transition-all duration-300 hover:shadow-lg hover:border-primary-300">
-              <div className="mr-4 text-primary-600">
+            <div className="wood-service-card">
+              <div className="wood-service-icon">
                 <PhoneIcon className="h-10 w-10" />
               </div>
-              <div>
-                <h3 className="font-medium text-gray-900">24/7 Support</h3>
-                <p className="text-sm text-gray-500">Dedicated assistance</p>
+              <div className="wood-service-content">
+                <h3 className="wood-service-title">24/7 Support</h3>
+                <p className="wood-service-description">Dedicated assistance</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Categories Section */}
-      <div className="py-12 bg-gray-50">
+      {/* Categories Section with Wood Theme */}
+      <div className="wood-categories-section">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Shop by Category</h2>
-            <p className="text-gray-600">Find exactly what you need for your project</p>
+            <h2 className="wood-categories-title">Shop by Category</h2>
+            <p className="wood-categories-subtitle">Find exactly what you need for your project</p>
           </div>
           
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="wood-spinner">
+              <div className="wood-spinner-icon"></div>
             </div>
           ) : error ? (
-            <div className="mt-6 text-center text-red-500">{error}</div>
+            <div className="wood-alert-error">{error}</div>
           ) : categories.length === 0 ? (
-            <div className="mt-6 text-center text-gray-500">No categories available</div>
+            <div className="wood-empty-state">No categories available</div>
           ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.slice(0, 4).map((category) => (
                 <Link key={category.id} to={`/products/category/${category.id}`}>
-                  <div className="group relative overflow-hidden rounded-lg bg-primary-50 p-6">
-                    <div className="flex flex-col justify-center items-center h-full">
-                      <h3 className="text-primary-800 text-xl font-bold">{category.name}</h3>
-                      <p className="text-primary-600 text-sm mt-2">
-                        {category.calculatedProductCount} Products
-                      </p>
+                  <div className="wood-category-card">
+                    <h3 className="wood-category-name">{category.name}</h3>
+                    <p className="wood-category-count">
+                      {category.calculatedProductCount} Products
+                    </p>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
           )}
         </div>
       </div>
+      
+      {/* Deal of the Day with Wood Theme */}
+      {dealOfTheDay && (
+        <div className="py-12">
+          <div className="container mx-auto px-4">
+            <div className="wood-deal-section">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div className="lg:col-span-3 p-4">
+                  <img
+                    src={getImageUrl(dealOfTheDay.image)}
+                    alt={dealOfTheDay.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="lg:col-span-2">
+                  <div className="wood-deal-content">
+                    <h2 className="wood-deal-title">Deal of the Day</h2>
+                    <p className="wood-deal-subtitle">Limited time offer</p>
+                    
+                    <div className="wood-deal-product">
+                      <h3 className="wood-product-title text-xl">{dealOfTheDay.name}</h3>
+                      
+                      <div className="flex items-center">
+                        <span className="wood-deal-price">
+                          ${formatPrice(dealOfTheDay.sale_price || dealOfTheDay.price)}
+                        </span>
+                        {dealOfTheDay.original_price && (
+                          <span className="wood-deal-original-price">
+                            ${formatPrice(dealOfTheDay.original_price)}
+                          </span>
+                        )}
+                        {dealOfTheDay.discount_percentage && (
+                          <span className="wood-deal-discount">
+                            -{dealOfTheDay.discount_percentage}%
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="wood-deal-timer">
+                        <div className="wood-timer-unit">
+                          <div className="wood-timer-number">24</div>
+                          <div className="wood-timer-label">Hours</div>
+                        </div>
+                        <div className="wood-timer-unit">
+                          <div className="wood-timer-number">00</div>
+                          <div className="wood-timer-label">Minutes</div>
+                        </div>
+                        <div className="wood-timer-unit">
+                          <div className="wood-timer-number">00</div>
+                          <div className="wood-timer-label">Seconds</div>
+                        </div>
+                      </div>
+                      
+                      <Link
+                        to={`/products/${dealOfTheDay.id}`}
+                        className="wood-product-button"
+                      >
+                        Shop Now
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Featured Products Section */}
-      <div className="py-12 bg-white">
+      {/* Featured Products with Wood Theme */}
+      <div className="wood-products-section">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Featured Products</h2>
-            <p className="text-gray-600">Our most popular options chosen by customers</p>
+          <div className="mb-8">
+            <h2 className="wood-section-title">Featured Products</h2>
+            <p className="wood-section-subtitle">Our selection of high-quality wood products</p>
           </div>
           
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="wood-spinner">
+              <div className="wood-spinner-icon"></div>
             </div>
           ) : error ? (
-            <div className="mt-6 text-center text-red-500">{error}</div>
+            <div className="wood-alert-error">{error}</div>
           ) : featuredProducts.length === 0 ? (
-            <div className="mt-6 text-center text-gray-500">No featured products available</div>
+            <div className="wood-empty-state">No featured products available</div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={(id) => console.log('Added to cart:', id)}
-                  onToggleCompare={(id) => console.log('Added to compare:', id)}
-                  isSelected={false}
-                  compact={false}
-                />
+                <div key={product.id} className="wood-product-card">
+                  <div className="wood-product-image-container">
+                    <Link to={`/products/${product.id}`}>
+                      <img
+                        src={getImageUrl(product.image)}
+                        alt={product.name}
+                        className="wood-product-image"
+                      />
+                    </Link>
+                    
+                    {product.discount && (
+                      <div className="wood-product-badge">
+                        -{product.discount}%
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="wood-product-content">
+                    <Link to={`/products/${product.id}`}>
+                      <h3 className="wood-product-title">{product.name}</h3>
+                    </Link>
+                    
+                    <div className="flex items-center">
+                      {product.sale_price && product.sale_price < product.price ? (
+                        <>
+                          <span className="wood-product-price">
+                            ${formatPrice(product.sale_price)}
+                          </span>
+                          <span className="wood-product-original-price">
+                            ${formatPrice(product.price)}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="wood-product-price">
+                          ${formatPrice(product.price)}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <p className="wood-product-description">
+                      {product.description ? product.description.substring(0, 100) + '...' : ''}
+                    </p>
+                    
+                    <button
+                      onClick={() => onAddToCart(product.id)}
+                      disabled={product.stock_quantity <= 0}
+                      className="wood-product-button"
+                    >
+                      <ShoppingCartIcon className="h-5 w-5" />
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
         </div>
       </div>
 
-      {/* Banners Section */}
-      <div className="py-12 bg-white">
+      {/* New Arrivals with Wood Theme */}
+      <div className="wood-products-section">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="relative overflow-hidden rounded-lg group">
-              <img 
-                src="/media/Background/HD-wallpaper-light-wooden-texture-wooden-light-brown-background-wood-texture-wooden-board-texture.jpg"
-                alt="Premium Panels"
-                className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center">
-                <div className="p-8">
-                  <h3 className="text-white text-2xl font-bold mb-2">Premium Panels</h3>
-                  <p className="text-white text-sm mb-4">High-quality panels for your interior design</p>
-                  <Link 
-                    to="/products"
-                    className="inline-block bg-white text-gray-900 hover:bg-primary-600 hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
-                  >
-                    Shop Now
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative overflow-hidden rounded-lg group">
-              <img 
-                src="/media/Background/HD-wallpaper-light-brown-wooden-texture-macro-wooden-structure-wooden-backgrounds-wooden-textures-brown-backgrounds-brown-wood.jpg" 
-                alt="Wood Collection"
-                className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center">
-                <div className="p-8">
-                  <h3 className="text-white text-2xl font-bold mb-2">Flooring Collection</h3>
-                  <p className="text-white text-sm mb-4">Discover our wide range of flooring products</p>
-                  <Link 
-                    to="/products"
-                    className="inline-block bg-white text-gray-900 hover:bg-primary-600 hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
-                  >
-                    Shop Now
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* New Arrivals */}
-      <div className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">New Arrivals</h2>
-            <p className="text-gray-600">The latest additions to our collection</p>
+          <div className="mb-8">
+            <h2 className="wood-section-title">New Arrivals</h2>
+            <p className="wood-section-subtitle">The latest additions to our collection</p>
           </div>
           
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="wood-spinner">
+              <div className="wood-spinner-icon"></div>
             </div>
           ) : error ? (
-            <div className="mt-6 text-center text-red-500">{error}</div>
+            <div className="wood-alert-error">{error}</div>
           ) : newArrivals.length === 0 ? (
-            <div className="mt-6 text-center text-gray-500">No new products available</div>
+            <div className="wood-empty-state">No new arrivals available</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {newArrivals.slice(0, 2).map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={(id) => console.log('Added to cart:', id)}
-                  onToggleCompare={(id) => console.log('Added to compare:', id)}
-                  isSelected={false}
-                  compact={false}
-                />
+                <div key={product.id} className="wood-product-card">
+                  <div className="wood-product-image-container">
+                    <Link to={`/products/${product.id}`}>
+                      <img
+                        src={getImageUrl(product.image)}
+                        alt={product.name}
+                        className="wood-product-image"
+                      />
+                    </Link>
+                  </div>
+                  
+                  <div className="wood-product-content">
+                    <Link to={`/products/${product.id}`}>
+                      <h3 className="wood-product-title">{product.name}</h3>
+                    </Link>
+                    
+                    <div className="flex items-center">
+                      <span className="wood-product-price">
+                        ${formatPrice(product.price)}
+                      </span>
+                    </div>
+                    
+                    <p className="wood-product-description">
+                      {product.description ? product.description.substring(0, 100) + '...' : ''}
+                    </p>
+                    
+                    <button
+                      onClick={() => onAddToCart(product.id)}
+                      disabled={product.stock_quantity <= 0}
+                      className="wood-product-button"
+                    >
+                      <ShoppingCartIcon className="h-5 w-5" />
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
-        </div>
-      </div>
-
-      {/* Deal of the Day */}
-      <div className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-            </div>
-          ) : dealOfTheDay ? (
-          <div className="bg-gray-100 rounded-lg overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative overflow-hidden h-80 md:h-auto">
-                <img 
-                    src={getImageUrl(dealOfTheDay.image || null)} 
-                    alt={dealOfTheDay.name}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      // Use a wood texture background as fallback for the deal of the day
-                      target.src = '/media/Background/HD-wallpaper-abstract-texture-wood.jpg';
-                    }}
-                  />
-                  
-                  {/* Show discount badge */}
-                <div className="absolute top-4 left-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-md">
-                    {(dealOfTheDay as any).discount_percentage ? 
-                      `-${(dealOfTheDay as any).discount_percentage}%` : '-20%'}
-                </div>
-              </div>
-              
-              <div className="p-8 flex flex-col justify-center">
-                <span className="text-primary-600 font-medium mb-2">Limited Time Offer</span>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-3">{dealOfTheDay.name}</h3>
-                <p className="text-gray-600 mb-6">
-                    {dealOfTheDay.description || 'High-quality wood product at a special price. Limited time offer, get it while supplies last!'}
-                </p>
-                <div className="mb-6">
-                  <div className="flex items-center">
-                      <span className="text-3xl font-bold text-gray-900 mr-3">${formatPrice(dealOfTheDay.price)}</span>
-                      <span className="text-xl text-gray-500 line-through">
-                        ${formatPrice((dealOfTheDay as any).original_price || (dealOfTheDay.price * 1.25))}
-                      </span>
-                  </div>
-                </div>
-                <Link
-                    to={`/products/${dealOfTheDay.id}`}
-                  className="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md transition-colors duration-300 w-full md:w-auto text-center"
-                >
-                  Shop Now
-                </Link>
-              </div>
-            </div>
-          </div>
-          ) : null}
         </div>
       </div>
 
       {/* Best Sellers */}
-      <div className="py-12 bg-gray-50">
+      <div className="wood-products-section">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Best Sellers</h2>
-            <p className="text-gray-600">Our most popular products that customers love</p>
+          <div className="mb-8">
+            <h2 className="wood-section-title">Best Sellers</h2>
+            <p className="wood-section-subtitle">Our most popular products that customers love</p>
           </div>
           
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="wood-spinner">
+              <div className="wood-spinner-icon"></div>
             </div>
           ) : error ? (
-            <div className="mt-6 text-center text-red-500">{error}</div>
+            <div className="wood-alert-error">{error}</div>
           ) : bestSellers.length === 0 ? (
-            <div className="mt-6 text-center text-gray-500">No best sellers available</div>
+            <div className="wood-empty-state">No best sellers available</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {bestSellers.slice(0, 2).map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={(id) => console.log('Added to cart:', id)}
-                  onToggleCompare={(id) => console.log('Added to compare:', id)}
-                  isSelected={false}
-                  compact={false}
-                />
+                <div key={product.id} className="wood-product-card">
+                  <div className="wood-product-image-container">
+                    <Link to={`/products/${product.id}`}>
+                      <img
+                        src={getImageUrl(product.image)}
+                        alt={product.name}
+                        className="wood-product-image"
+                      />
+                    </Link>
+                    
+                    {product.discount && (
+                      <div className="wood-product-badge">
+                        -{product.discount}%
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="wood-product-content">
+                    <Link to={`/products/${product.id}`}>
+                      <h3 className="wood-product-title">{product.name}</h3>
+                    </Link>
+                    
+                    <div className="flex items-center">
+                      {product.sale_price && product.sale_price < product.price ? (
+                        <>
+                          <span className="wood-product-price">
+                            ${formatPrice(product.sale_price)}
+                          </span>
+                          <span className="wood-product-original-price">
+                            ${formatPrice(product.price)}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="wood-product-price">
+                          ${formatPrice(product.price)}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <p className="wood-product-description">
+                      {product.description ? product.description.substring(0, 100) + '...' : ''}
+                    </p>
+                    
+                    <button
+                      onClick={() => onAddToCart(product.id)}
+                      disabled={product.stock_quantity <= 0}
+                      className="wood-product-button"
+                    >
+                      <ShoppingCartIcon className="h-5 w-5" />
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="py-16 bg-gray-100">
+      {/* Newsletter with Wood Theme */}
+      <div className="wood-categories-section py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Subscribe to Our Newsletter</h2>
-          <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-            Stay updated with our latest products, special offers, and discounts
+          <h2 className="wood-categories-title">Subscribe to Our Newsletter</h2>
+          <p className="wood-categories-subtitle mb-8 max-w-xl mx-auto">
+            Stay updated with our latest products, special offers, and wooden treasures
           </p>
           <div className="max-w-lg mx-auto flex">
             <input
               type="email"
               placeholder="Your email address"
-              className="flex-1 py-3 px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 py-3 px-4 border border-wood-brown-300 bg-white focus:outline-none focus:ring-2 focus:ring-wood-brown-500 focus:border-wood-brown-500"
             />
-            <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 transition-colors duration-300">
+            <button className="wood-product-button px-6 py-3">
               Subscribe
             </button>
           </div>

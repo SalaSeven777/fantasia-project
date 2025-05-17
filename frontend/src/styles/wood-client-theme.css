@@ -1,0 +1,2042 @@
+/* Wood Client Theme - Natural and Rustic Design */
+
+/* Import the base wood theme variables */
+@import './wood-theme.css';
+
+/* Client Pages - Wood Theme */
+.wood-client-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Page headers */
+.wood-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--wood-brown-300);
+  position: relative;
+}
+
+.wood-page-header::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background-color: var(--wood-brown-600);
+  border-radius: 2px;
+}
+
+.wood-page-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--wood-brown-800);
+  position: relative;
+  padding-left: 1rem;
+}
+
+.wood-page-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 4px;
+  background-color: var(--wood-brown-500);
+  border-radius: 2px;
+}
+
+/* Card containers */
+.wood-card {
+  background-color: var(--wood-neutral-50);
+  border-radius: var(--wood-border-radius);
+  box-shadow: var(--wood-shadow);
+  border: 1px solid var(--wood-neutral-200);
+  overflow: hidden;
+  transition: var(--wood-transition);
+  position: relative;
+}
+
+.wood-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--wood-shadow-md);
+}
+
+/* Card headers */
+.wood-card-header {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--wood-neutral-100);
+  border-bottom: 1px solid var(--wood-neutral-200);
+}
+
+.wood-card-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--wood-brown-800);
+  margin-bottom: 0.25rem;
+}
+
+.wood-card-subtitle {
+  color: var(--wood-neutral-600);
+  font-size: 0.875rem;
+}
+
+/* Card content */
+.wood-card-body {
+  padding: 1.5rem;
+}
+
+/* Info list */
+.wood-info-list {
+  border-top: 1px solid var(--wood-neutral-200);
+}
+
+.wood-info-item {
+  display: flex;
+  padding: 1rem 1.5rem;
+}
+
+.wood-info-item:nth-child(odd) {
+  background-color: var(--wood-neutral-100);
+}
+
+.wood-info-label {
+  font-weight: 500;
+  color: var(--wood-neutral-700);
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+.wood-info-value {
+  color: var(--wood-neutral-900);
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+/* Buttons */
+.wood-btn-sm {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.wood-btn-danger {
+  background-color: var(--wood-red-500);
+  color: white;
+  border-color: var(--wood-red-600);
+  background-image: linear-gradient(to bottom, var(--wood-red-500), var(--wood-red-600));
+}
+
+.wood-btn-danger:hover {
+  background-color: var(--wood-red-600);
+  border-color: var(--wood-red-600);
+  transform: translateY(-2px);
+  box-shadow: var(--wood-shadow-md);
+}
+
+/* Tables */
+.wood-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.wood-table-header {
+  background-color: var(--wood-neutral-100);
+}
+
+.wood-table-header th {
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--wood-neutral-700);
+  border-bottom: 2px solid var(--wood-brown-300);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.wood-table-body td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--wood-neutral-200);
+  color: var(--wood-neutral-800);
+}
+
+.wood-table-row:hover {
+  background-color: var(--wood-neutral-100);
+}
+
+/* Loading spinner */
+.wood-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.wood-spinner-icon {
+  border: 3px solid var(--wood-neutral-200);
+  border-radius: 50%;
+  border-top: 3px solid var(--wood-brown-600);
+  width: 2rem;
+  height: 2rem;
+  animation: wood-spin 1s linear infinite;
+}
+
+@keyframes wood-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error messages */
+.wood-alert-error {
+  padding: 1rem;
+  border-radius: var(--wood-border-radius);
+  background-color: rgba(var(--wood-red-500), 0.1);
+  border-left: 4px solid var(--wood-red-600);
+  color: var(--wood-red-600);
+  margin-bottom: 1.5rem;
+}
+
+/* Tags and badges */
+.wood-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.wood-badge-info {
+  background-color: rgba(var(--wood-blue-500), 0.1);
+  color: var(--wood-blue-600);
+}
+
+.wood-badge-success {
+  background-color: rgba(var(--wood-green-500), 0.1);
+  color: var(--wood-green-600);
+}
+
+.wood-badge-warning {
+  background-color: rgba(var(--wood-brown-500), 0.1);
+  color: var(--wood-brown-700);
+}
+
+.wood-badge-danger {
+  background-color: rgba(var(--wood-red-500), 0.1);
+  color: var(--wood-red-600);
+}
+
+/* Utility classes */
+.wood-text-secondary {
+  color: var(--wood-neutral-600);
+}
+
+.wood-text-success {
+  color: var(--wood-green-600);
+}
+
+.wood-text-danger {
+  color: var(--wood-red-600);
+}
+
+.wood-bordered {
+  border: 1px solid var(--wood-neutral-200);
+  border-radius: var(--wood-border-radius);
+  padding: 1rem;
+}
+
+.wood-empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--wood-neutral-600);
+}
+
+/* Wood Theme for Client Home Pages */
+
+@import './wood-theme.css';
+
+/* Hero section with wood texture */
+.wood-hero-section {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--wood-border-radius-lg);
+  box-shadow: var(--wood-shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.wood-hero-slide {
+  position: relative;
+}
+
+.wood-hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(90, 61, 35, 0.3);
+  z-index: 1;
+}
+
+.wood-hero-content {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(90, 61, 35, 0.6);
+  border-radius: var(--wood-border-radius);
+  padding: 2rem;
+  max-width: 500px;
+  margin-left: 2rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--wood-brown-600);
+  box-shadow: var(--wood-shadow-md);
+}
+
+.wood-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-100);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.wood-hero-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(to right, var(--wood-brown-200), transparent);
+  border-radius: 3px;
+}
+
+.wood-hero-subtitle {
+  color: var(--wood-brown-200);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.wood-hero-description {
+  color: var(--wood-brown-100);
+  margin-bottom: 1.5rem;
+}
+
+.wood-hero-button {
+  background-color: var(--wood-brown-600);
+  color: white;
+  border: 2px solid var(--wood-brown-400);
+  box-shadow: var(--wood-shadow);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--wood-border-radius);
+  font-weight: 600;
+  transition: var(--wood-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-hero-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,10 C70,15 30,15 0,10 L0,0 Z' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wood-hero-button:hover {
+  transform: translateY(-3px);
+  background-color: var(--wood-brown-700);
+  box-shadow: var(--wood-shadow-md);
+}
+
+/* Slider controls */
+.wood-slider-control {
+  background-color: var(--wood-brown-600);
+  color: var(--wood-brown-100);
+  border: 2px solid var(--wood-brown-200);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: var(--wood-transition);
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.wood-slider-control::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.wood-slider-control:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: var(--wood-brown-700);
+}
+
+.wood-slider-indicator {
+  width: 2rem;
+  height: 0.5rem;
+  border-radius: 1rem;
+  background-color: var(--wood-brown-300);
+  transition: var(--wood-transition);
+  opacity: 0.5;
+}
+
+.wood-slider-indicator.active {
+  background-color: var(--wood-brown-700);
+  opacity: 1;
+}
+
+/* Services section */
+.wood-services-section {
+  padding: 3rem 0;
+  background-color: var(--wood-neutral-50);
+  position: relative;
+}
+
+.wood-services-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.05'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20zm40-20h20v20H40V0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.wood-service-card {
+  background-color: var(--wood-neutral-100);
+  border: 1px solid var(--wood-brown-300);
+  border-radius: var(--wood-border-radius);
+  padding: 1.5rem;
+  transition: var(--wood-transition);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C10,10 20,10 30,0 C40,-10 50,10 60,0 C70,-10 80,10 90,0 C100,-10 110,10 100,20 C90,30 100,40 90,50 C80,60 90,70 80,80 C70,90 80,100 70,100 C60,100 50,90 40,100 C30,110 20,100 10,100 C0,100 -10,90 0,80 C10,70 0,60 10,50 C20,40 10,30 0,20 C-10,10 0,0 0,0 Z' stroke='%23a47b58' stroke-width='0.5' stroke-opacity='0.05' fill='none' /%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.wood-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--wood-shadow-md);
+  border-color: var(--wood-brown-600);
+}
+
+.wood-service-icon {
+  color: var(--wood-brown-700);
+  margin-right: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-service-content {
+  position: relative;
+  z-index: 1;
+}
+
+.wood-service-title {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.wood-service-description {
+  color: var(--wood-neutral-700);
+  font-size: 0.875rem;
+}
+
+/* Categories section */
+.wood-categories-section {
+  padding: 3rem 0;
+  background-color: var(--wood-brown-100);
+  position: relative;
+}
+
+.wood-categories-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-800);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.wood-categories-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 2px;
+  width: 60px;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, var(--wood-brown-400), var(--wood-brown-600), var(--wood-brown-400));
+  border-radius: 2px;
+}
+
+.wood-categories-subtitle {
+  color: var(--wood-brown-600);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.wood-category-card {
+  background-color: var(--wood-neutral-50);
+  border: 1px solid var(--wood-brown-300);
+  border-radius: var(--wood-border-radius);
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--wood-transition);
+  position: relative;
+  overflow: hidden;
+  height: 12rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wood-category-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.08'%3E%3Cpath d='M0,0 C10,10 20,20 30,10 C40,0 50,0 60,10 C70,20 80,20 70,30 C60,40 80,40 70,50 C60,60 70,70 60,80 C50,70 40,80 30,70 C20,60 10,70 0,60 C-10,50 0,40 10,30 C20,20 10,10 0,0 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.wood-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--wood-shadow-md);
+  border-color: var(--wood-brown-600);
+}
+
+.wood-category-name {
+  color: var(--wood-brown-800);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-category-count {
+  color: var(--wood-brown-600);
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Featured products section */
+.wood-products-section {
+  padding: 3rem 0;
+  background-color: var(--wood-neutral-50);
+  position: relative;
+}
+
+.wood-products-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.05'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10zm10-10h10v10H20V0zm10 10h10v10H30V10zM0 20h10v10H0V20zm10 10h10v10H10V30zm10-10h10v10H20V20zm10 10h10v10H30V30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.wood-section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-800);
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.wood-section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(to right, var(--wood-brown-600), var(--wood-brown-400));
+  border-radius: 2px;
+}
+
+.wood-section-subtitle {
+  color: var(--wood-brown-600);
+  margin-bottom: 2rem;
+}
+
+/* Product card */
+.wood-product-card {
+  background-color: var(--wood-neutral-50);
+  border: 1px solid var(--wood-brown-300);
+  border-radius: var(--wood-border-radius);
+  overflow: hidden;
+  transition: var(--wood-transition);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wood-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--wood-shadow-md);
+  border-color: var(--wood-brown-600);
+}
+
+.wood-product-image-container {
+  position: relative;
+  padding-top: 100%;
+  background-color: white;
+  overflow: hidden;
+}
+
+.wood-product-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.wood-product-card:hover .wood-product-image {
+  transform: scale(1.05);
+}
+
+.wood-product-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--wood-red-500);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--wood-border-radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.wood-product-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+
+.wood-product-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C10,10 20,10 30,0 C40,-10 50,10 60,0 C70,-10 80,10 90,0 C100,-10 110,10 100,20 C90,30 100,40 90,50 C80,60 90,70 80,80 C70,90 80,100 70,100 C60,100 50,90 40,100 C30,110 20,100 10,100 C0,100 -10,90 0,80 C10,70 0,60 10,50 C20,40 10,30 0,20 C-10,10 0,0 0,0 Z' stroke='%23a47b58' stroke-width='0.5' stroke-opacity='0.05' fill='none' /%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.wood-product-title {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wood-product-price {
+  font-weight: 700;
+  color: var(--wood-brown-900);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-original-price {
+  color: var(--wood-neutral-600);
+  text-decoration: line-through;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.wood-product-description {
+  color: var(--wood-neutral-700);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wood-product-button {
+  background-color: var(--wood-brown-600);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--wood-border-radius);
+  font-weight: 500;
+  transition: var(--wood-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.wood-product-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,10 C70,15 30,15 0,10 L0,0 Z' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wood-product-button:hover {
+  background-color: var(--wood-brown-700);
+  transform: translateY(-2px);
+}
+
+.wood-product-button:disabled {
+  background-color: var(--wood-neutral-300);
+  border-color: var(--wood-neutral-400);
+  color: var(--wood-neutral-600);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Deal of the day */
+.wood-deal-section {
+  background-color: var(--wood-brown-200);
+  border-radius: var(--wood-border-radius-lg);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.wood-deal-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.1'%3E%3Cpath d='M0,0 C10,10 20,20 30,10 C40,0 50,0 60,10 C70,20 80,20 70,30 C60,40 80,40 70,50 C60,60 70,70 60,80 C50,70 40,80 30,70 C20,60 10,70 0,60 C-10,50 0,40 10,30 C20,20 10,10 0,0 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+
+.wood-deal-content {
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-deal-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-800);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.wood-deal-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 40px;
+  background: linear-gradient(to right, var(--wood-brown-600), var(--wood-brown-400));
+  border-radius: 2px;
+}
+
+.wood-deal-subtitle {
+  color: var(--wood-brown-600);
+  margin-bottom: 1rem;
+}
+
+.wood-deal-product {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wood-deal-price {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-red-600);
+  font-size: 1.75rem;
+  margin-right: 0.75rem;
+}
+
+.wood-deal-original-price {
+  color: var(--wood-neutral-600);
+  text-decoration: line-through;
+  font-size: 1.125rem;
+}
+
+.wood-deal-discount {
+  background-color: var(--wood-red-500);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--wood-border-radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-left: 0.75rem;
+}
+
+.wood-deal-timer {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.wood-timer-unit {
+  background-color: var(--wood-brown-700);
+  color: white;
+  border-radius: var(--wood-border-radius);
+  padding: 0.75rem;
+  min-width: 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-timer-unit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.wood-timer-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.wood-timer-label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Product Detail Pages */
+.wood-product-detail {
+  padding: 2rem 0;
+  position: relative;
+}
+
+.wood-product-detail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.03'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10zm10-10h10v10H20V0zm10 10h10v10H30V10zM0 20h10v10H0V20zm10 10h10v10H10V30zm10-10h10v10H20V20zm10 10h10v10H30V30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: -1;
+}
+
+.wood-product-gallery {
+  background-color: white;
+  border-radius: var(--wood-border-radius);
+  border: 1px solid var(--wood-brown-300);
+  overflow: hidden;
+  box-shadow: var(--wood-shadow-md);
+  position: relative;
+}
+
+.wood-product-gallery::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L15,0 C15,0 20,0 20,5 L20,15 L0,15 L0,0 Z' fill='%23a47b58' fill-opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,0 L25,0 C25,0 20,0 20,5 L20,15 L40,15 L40,0 Z' fill='%23a47b58' fill-opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 L15,40 C15,40 20,40 20,35 L20,25 L0,25 L0,40 Z' fill='%23a47b58' fill-opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,40 L25,40 C25,40 20,40 20,35 L20,25 L40,25 L40,40 Z' fill='%23a47b58' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-position: top left, top right, bottom left, bottom right;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.wood-product-main-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.wood-product-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--wood-brown-400) var(--wood-brown-100);
+}
+
+.wood-product-thumbnails::-webkit-scrollbar {
+  height: 6px;
+}
+
+.wood-product-thumbnails::-webkit-scrollbar-track {
+  background: var(--wood-brown-100);
+  border-radius: 10px;
+}
+
+.wood-product-thumbnails::-webkit-scrollbar-thumb {
+  background-color: var(--wood-brown-400);
+  border-radius: 10px;
+}
+
+.wood-product-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--wood-border-radius);
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--wood-transition);
+}
+
+.wood-product-thumbnail:hover {
+  border-color: var(--wood-brown-400);
+  transform: scale(1.05);
+}
+
+.wood-product-thumbnail.active {
+  border-color: var(--wood-brown-600);
+}
+
+.wood-product-info {
+  background-color: var(--wood-neutral-50);
+  border-radius: var(--wood-border-radius);
+  border: 1px solid var(--wood-brown-300);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-product-info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C10,10 20,10 30,0 C40,-10 50,10 60,0 C70,-10 80,10 90,0 C100,-10 110,10 100,20 C90,30 100,40 90,50 C80,60 90,70 80,80 C70,90 80,100 70,100 C60,100 50,90 40,100 C30,110 20,100 10,100 C0,100 -10,90 0,80 C10,70 0,60 10,50 C20,40 10,30 0,20 C-10,10 0,0 0,0 Z' stroke='%23a47b58' stroke-width='0.5' stroke-opacity='0.05' fill='none' /%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.wood-product-detail-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-900);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-category {
+  color: var(--wood-brown-600);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-price {
+  font-weight: 700;
+  color: var(--wood-brown-900);
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-original-price {
+  color: var(--wood-neutral-600);
+  text-decoration: line-through;
+  font-size: 1.125rem;
+  margin-left: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-discount {
+  background-color: var(--wood-red-500);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--wood-border-radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-left: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-description {
+  color: var(--wood-neutral-700);
+  margin: 1.5rem 0;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-stock {
+  padding: 0.5rem 1rem;
+  border-radius: var(--wood-border-radius);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-product-detail-stock.in-stock {
+  background-color: rgba(110, 142, 92, 0.1);
+  color: var(--wood-green-600);
+}
+
+.wood-product-detail-stock.low-stock {
+  background-color: rgba(214, 174, 55, 0.1);
+  color: var(--wood-gold-600);
+}
+
+.wood-product-detail-stock.out-stock {
+  background-color: rgba(163, 86, 56, 0.1);
+  color: var(--wood-red-600);
+}
+
+.wood-product-quantity {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-quantity-label {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  margin-right: 1rem;
+}
+
+.wood-quantity-controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--wood-brown-300);
+  border-radius: var(--wood-border-radius);
+  overflow: hidden;
+}
+
+.wood-quantity-btn {
+  background-color: var(--wood-neutral-100);
+  color: var(--wood-brown-800);
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--wood-transition);
+}
+
+.wood-quantity-btn:hover {
+  background-color: var(--wood-brown-200);
+}
+
+.wood-quantity-input {
+  width: 3rem;
+  height: 2.5rem;
+  border: none;
+  border-left: 1px solid var(--wood-brown-300);
+  border-right: 1px solid var(--wood-brown-300);
+  background-color: white;
+  text-align: center;
+  font-weight: 600;
+  color: var(--wood-brown-900);
+}
+
+.wood-product-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-add-to-cart-btn {
+  flex: 1;
+  background-color: var(--wood-brown-600);
+  color: white;
+  border: 2px solid var(--wood-brown-700);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--wood-border-radius);
+  font-weight: 600;
+  transition: var(--wood-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-add-to-cart-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,10 C70,15 30,15 0,10 L0,0 Z' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wood-add-to-cart-btn:hover {
+  background-color: var(--wood-brown-700);
+  transform: translateY(-2px);
+  box-shadow: var(--wood-shadow-md);
+}
+
+.wood-add-to-cart-btn:disabled {
+  background-color: var(--wood-neutral-300);
+  border-color: var(--wood-neutral-400);
+  color: var(--wood-neutral-600);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.wood-wishlist-btn {
+  background-color: var(--wood-neutral-50);
+  color: var(--wood-brown-800);
+  border: 2px solid var(--wood-brown-300);
+  padding: 0.75rem;
+  border-radius: var(--wood-border-radius);
+  transition: var(--wood-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wood-wishlist-btn:hover {
+  background-color: var(--wood-brown-100);
+  border-color: var(--wood-brown-500);
+  transform: translateY(-2px);
+}
+
+.wood-wishlist-btn.active {
+  color: var(--wood-red-600);
+  border-color: var(--wood-red-500);
+}
+
+.wood-product-meta {
+  border-top: 1px solid var(--wood-brown-300);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wood-meta-item {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.wood-meta-label {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.wood-meta-value {
+  color: var(--wood-neutral-700);
+}
+
+.wood-product-details-tabs {
+  margin-top: 3rem;
+}
+
+.wood-tabs-header {
+  display: flex;
+  border-bottom: 2px solid var(--wood-brown-300);
+  margin-bottom: 1.5rem;
+}
+
+.wood-tab-btn {
+  padding: 0.75rem 1.5rem;
+  color: var(--wood-neutral-600);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: var(--wood-transition);
+}
+
+.wood-tab-btn:hover {
+  color: var(--wood-brown-700);
+}
+
+.wood-tab-btn.active {
+  color: var(--wood-brown-800);
+  border-color: var(--wood-brown-600);
+}
+
+.wood-tab-content {
+  padding: 1rem;
+  background-color: var(--wood-neutral-50);
+  border-radius: var(--wood-border-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-tab-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.03'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10zm10-10h10v10H20V0zm10 10h10v10H30V10zM0 20h10v10H0V20zm10 10h10v10H10V30zm10-10h10v10H20V20zm10 10h10v10H30V30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.wood-tab-content-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.wood-specifications-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.wood-specifications-table tr:nth-child(even) {
+  background-color: rgba(164, 123, 88, 0.05);
+}
+
+.wood-specifications-table th,
+.wood-specifications-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.wood-specifications-table th {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  width: 30%;
+}
+
+.wood-specifications-table td {
+  color: var(--wood-neutral-700);
+}
+
+.wood-related-products {
+  margin-top: 3rem;
+}
+
+.wood-related-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--wood-brown-800);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.wood-related-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(to right, var(--wood-brown-600), var(--wood-brown-400));
+  border-radius: 2px;
+}
+
+/* Header and Footer Wood Theme Styles */
+
+/* Top Bar */
+.wood-top-bar {
+  background-color: #462a19;
+  background-image: 
+    linear-gradient(90deg, rgba(54, 33, 19, 0.9) 0%, rgba(79, 48, 31, 0.9) 50%, rgba(54, 33, 19, 0.9) 100%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 5px);
+  position: relative;
+  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #5a3b28;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+/* Standalone top navigation bar like in screenshot */
+.wood-account-nav {
+  background-color: #462a19;
+  background-image: 
+    linear-gradient(90deg, rgba(54, 33, 19, 0.9) 0%, rgba(79, 48, 31, 0.9) 50%, rgba(54, 33, 19, 0.9) 100%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 5px);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #5a3b28;
+}
+
+.wood-account-nav-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.wood-top-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 0;
+}
+
+.wood-top-bar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.wood-top-bar-link, 
+.wood-top-bar a,
+.wood-account-link {
+  color: #e0cbb3;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.wood-top-bar-link:hover,
+.wood-top-bar a:hover,
+.wood-account-link:hover {
+  color: #ffeac7;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.wood-top-bar-link:hover::after,
+.wood-top-bar a:hover::after,
+.wood-account-link:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffeac7, transparent);
+}
+
+/* Account section in top bar */
+.wood-account-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: flex-end;
+}
+
+.wood-account-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: #e0cbb3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.wood-account-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffeac7;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.wood-account-link svg {
+  color: #d8b78e;
+}
+
+/* Main Header */
+.wood-header {
+  background-color: #f8f3e9;
+  background-image: 
+    linear-gradient(to bottom, #f8f3e9, #f0e6d7),
+    repeating-linear-gradient(90deg, 
+      rgba(193, 154, 107, 0.05) 0px, 
+      rgba(193, 154, 107, 0.05) 1px, 
+      transparent 1px, 
+      transparent 15px),
+    repeating-linear-gradient(0deg, 
+      rgba(193, 154, 107, 0.03) 0px, 
+      rgba(193, 154, 107, 0.03) 1px, 
+      transparent 1px, 
+      transparent 15px);
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e6d8c3;
+}
+
+.wood-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 0;
+}
+
+.wood-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    #a67c52, #c69c6d, #a67c52, #8b5e3c, 
+    #c69c6d, #a67c52, #8b5e3c, #c69c6d);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.wood-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.wood-logo-icon {
+  background: linear-gradient(135deg, #8b5e3c 0%, #a67c52 100%);
+  border-radius: 6px;
+  color: #fff;
+  transform: rotate(-2deg);
+  transition: all 0.4s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #c69c6d;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-logo-icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 15%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: all 0.6s ease;
+}
+
+.wood-logo-icon:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #9d6b45 0%, #b98c61 100%);
+}
+
+.wood-logo-icon:hover::before {
+  transform: translateX(100%);
+}
+
+.wood-logo-text {
+  color: #7d5434;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  background: linear-gradient(to bottom, #7d5434, #996633);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Navigation */
+.wood-nav-link {
+  color: #604631;
+  position: relative;
+  padding-bottom: 0.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.wood-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, transparent, #a67c52, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.wood-nav-link:hover {
+  color: #8b5e3c;
+  transform: translateY(-1px);
+}
+
+.wood-nav-link:hover::after,
+.wood-nav-link.active::after {
+  transform: scaleX(0.8);
+}
+
+.wood-nav-link.active {
+  color: #7d4b28;
+  font-weight: 600;
+}
+
+.wood-nav-link.active::after {
+  background: linear-gradient(90deg, transparent, #7d4b28, transparent);
+  height: 3px;
+}
+
+/* Mobile menu */
+.wood-menu-btn {
+  color: #7d5434;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.wood-menu-btn:hover {
+  background: rgba(193, 154, 107, 0.15);
+  color: #5e3a1c;
+}
+
+/* Dropdown */
+.wood-dropdown {
+  background-color: #f8f3e9;
+  background-image: 
+    linear-gradient(to bottom, #f8f3e9, #f0e6d7),
+    repeating-linear-gradient(45deg, 
+      rgba(193, 154, 107, 0.03) 0px, 
+      rgba(193, 154, 107, 0.03) 1px, 
+      transparent 1px, 
+      transparent 10px);
+  border: 1px solid #e6d8c3;
+  border-top: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  position: relative;
+  border-radius: 0 0 6px 6px;
+  padding-top: 5px;
+}
+
+.wood-dropdown::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    #a67c52, #c69c6d, #a67c52, #8b5e3c, 
+    #c69c6d);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.wood-dropdown-item {
+  color: #604631;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-dropdown-item:hover {
+  color: #3a2a1b;
+  background: rgba(193, 154, 107, 0.15);
+  padding-left: 1.75rem;
+}
+
+.wood-dropdown-item:hover::before {
+  content: "•";
+  position: absolute;
+  left: 1rem;
+  color: #8b5e3c;
+}
+
+/* Cart icon */
+.wood-cart-icon {
+  color: #604631;
+  transition: all 0.3s ease;
+}
+
+.wood-cart-icon:hover {
+  color: #8b5e3c;
+  transform: translateY(-2px);
+}
+
+.wood-cart-count {
+  background: linear-gradient(135deg, #8b5e3c 0%, #a67c52 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #c69c6d;
+  font-weight: 700;
+}
+
+/* Footer */
+.wood-footer {
+  background-color: #2a1a0a;
+  background-image: 
+    linear-gradient(to bottom, rgba(42, 26, 10, 0.98), rgba(32, 18, 6, 0.98)),
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.08'%3E%3Cpath d='M0,0 C20,33 40,33 60,0 C80,-33 100,33 100,100 C80,67 60,67 40,100 C20,133 0,67 0,0 Z' transform='translate(0, 0) scale(1, 1)' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23a47b58' stroke-width='0.5' stroke-opacity='0.05'%3E%3Cpath d='M0,0 L50,50 M50,0 L0,50' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  position: relative;
+  box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.4);
+  border-top: 1px solid #5a3b28;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Carved wood effect at top of footer */
+.wood-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='12' viewBox='0 0 100 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L0,12 L100,12 L100,0 C95,4 90,5 85,4 C80,3 75,0 70,0 C65,0 60,3 55,4 C50,5 45,4 40,3 C35,2 30,0 25,0 C20,0 15,2 10,3 C5,4 0,0 0,0 Z' fill='%235a3b28' fill-opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.8;
+  z-index: 1;
+}
+
+/* Wooden frame corner effect */
+.wood-footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L40,0 Q40,0 40,5 L40,35 Q40,40 35,40 L5,40 Q0,40 0,35 L0,0 Z' fill='%23a47b58' fill-opacity='0.08'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80,0 L40,0 Q40,0 40,5 L40,35 Q40,40 45,40 L75,40 Q80,40 80,35 L80,0 Z' fill='%23a47b58' fill-opacity='0.08'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,80 L40,80 Q40,80 40,75 L40,45 Q40,40 35,40 L5,40 Q0,40 0,45 L0,80 Z' fill='%23a47b58' fill-opacity='0.08'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80,80 L40,80 Q40,80 40,75 L40,45 Q40,40 45,40 L75,40 Q80,40 80,45 L80,80 Z' fill='%23a47b58' fill-opacity='0.08'/%3E%3C/svg%3E");
+  background-position: top left, top right, bottom left, bottom right;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Footer content container */
+.wood-footer > .container,
+.wood-footer > .max-w-7xl {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.wood-footer-heading {
+  color: #f9edd4;
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  font-family: 'Playfair Display', Georgia, serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-right: 2rem;
+}
+
+/* Decorative wooden nailhead for heading */
+.wood-footer-heading::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0.25rem;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #d8b78e 0%, #a67c52 50%, #5a3b28 100%);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.wood-footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, #d8b78e, transparent);
+  border-radius: 1px;
+}
+
+.wood-footer-text {
+  color: #c4a278;
+  line-height: 1.7;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.wood-footer-link {
+  text-decoration: none;
+  color: #c4a278;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 1.25rem;
+  display: inline-block;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Wooden arrow indicator */
+.wood-footer-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent #a67c52;
+  transition: all 0.3s ease;
+}
+
+.wood-footer-link:hover {
+  color: #f9edd4;
+  transform: translateX(3px);
+  text-decoration: none;
+}
+
+.wood-footer-link:hover::before {
+  border-color: transparent transparent transparent #d8b78e;
+  transform: translateY(-50%) scale(1.25);
+}
+
+.wood-footer-contact {
+  color: #c4a278;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.wood-footer-contact:hover {
+  color: #f9edd4;
+  transform: translateX(3px);
+}
+
+.wood-footer-contact svg {
+  color: #a67c52;
+  margin-right: 0.75rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.wood-footer-contact:hover svg {
+  color: #d8b78e;
+  transform: scale(1.1);
+}
+
+.wood-social-link {
+  color: #c4a278;
+  transition: all 0.3s ease;
+  margin-right: 1.5rem;
+  display: inline-block;
+  position: relative;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid rgba(166, 124, 82, 0.2);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.75rem;
+}
+
+.wood-social-link:hover {
+  color: #f9edd4;
+  background-color: rgba(166, 124, 82, 0.2);
+  border-color: rgba(166, 124, 82, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+/* Newsletter input styling */
+.wood-footer input[type="email"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #5a3b28;
+  color: #f9edd4;
+  transition: all 0.3s ease;
+}
+
+.wood-footer input[type="email"]::placeholder {
+  color: #a67c52;
+  opacity: 0.7;
+}
+
+.wood-footer input[type="email"]:focus {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: #a67c52;
+  box-shadow: 0 0 0 2px rgba(166, 124, 82, 0.3);
+  outline: none;
+}
+
+/* Newsletter button styling */
+.wood-footer button[type="submit"],
+.wood-newsletter-btn {
+  background: linear-gradient(to bottom, #a67c52, #8a572d);
+  border: 1px solid #5a3b28;
+  color: #f9edd4;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.wood-footer button[type="submit"]:hover,
+.wood-newsletter-btn:hover {
+  background: linear-gradient(to bottom, #b88c62, #9a673d);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Wooden grain effect on button */
+.wood-footer button[type="submit"]::before,
+.wood-newsletter-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M0,20 Q25,10 50,20 Q75,30 100,20 L100,30 Q75,40 50,30 Q25,20 0,30 Z' /%3E%3Cpath d='M0,50 Q25,40 50,50 Q75,60 100,50 L100,60 Q75,70 50,60 Q25,50 0,60 Z' /%3E%3Cpath d='M0,80 Q25,70 50,80 Q75,90 100,80 L100,90 Q75,100 50,90 Q25,80 0,90 Z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.wood-footer-logo {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(166, 124, 82, 0.2);
+  width: fit-content;
+}
+
+.wood-footer-border {
+  border-color: rgba(166, 124, 82, 0.2);
+  position: relative;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Decorative wood grain divider */
+.wood-footer-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='4' viewBox='0 0 100 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,1 Q10,0 20,1 T40,1 T60,1 T80,1 T100,1 L100,4 L0,4 Z' fill='%235a3b28' fill-opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+}
+
+.wood-copyright {
+  color: #a67c52;
+  font-size: 0.875rem;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .wood-footer {
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .wood-footer-heading {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+  }
+  
+  .wood-footer-text,
+  .wood-footer-link,
+  .wood-footer-contact,
+  .wood-social-link {
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  .wood-footer-border {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .wood-footer-link-r {
+    text-decoration: none;
+  }
+  
+  .wood-footer .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wood-footer .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .wood-footer .grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Fix content wrapper */
+.flex-col.min-h-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Make sure main content expands to push footer down */
+.flex-col.min-h-screen > main {
+  flex: 1 0 auto;
+  width: 100%;
+} 

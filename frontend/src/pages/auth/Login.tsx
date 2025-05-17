@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../components/LanguageSelector';
+import '../../styles/wood-theme.css';
+import '../../styles/wood-client-theme.css';
 
 const Login: React.FC = () => {
   // i18n hook
@@ -67,114 +69,109 @@ const Login: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Language selector at the top right */}
-      <div className="flex justify-end mb-2">
+      <div className="flex justify-end mb-4">
         <LanguageSelector />
       </div>
       
-      <div>
-        <h2 className="text-2xl font-semibold text-primary-900">
-          {t('login.title')}
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-semibold text-wood-brown-800 font-['Playfair_Display',_serif]">
+          {t('login.title', 'Sign In')}
         </h2>
       </div>
       
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-primary-900 mb-1">
-              {t('login.emailLabel')}
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-wood-brown-700 mb-1">
+            {t('login.emailLabel', 'Email Address')}
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            className="wood-input w-full px-3 py-2 border border-wood-brown-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-wood-brown-500 focus:border-wood-brown-500"
+            placeholder={t('login.emailPlaceholder', 'Enter your email')}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-wood-brown-700">
+              {t('login.passwordLabel', 'Password')}
             </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              className="appearance-none relative block w-full px-4 py-3 bg-neutral-100 border border-neutral-200 rounded-md placeholder-neutral-500 text-primary-900 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-150 ease-in-out sm:text-sm"
-              placeholder={t('login.emailLabel')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Link to="/forgot-password" className="text-sm text-wood-brown-600 hover:text-wood-brown-800">
+              {t('login.forgotPassword', 'Forgot password?')}
+            </Link>
           </div>
-          
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <label htmlFor="password" className="block text-sm font-medium text-primary-900">
-                {t('login.passwordLabel')}
-              </label>
-            </div>
-            <div className="relative">
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
-                required
-                className="appearance-none relative block w-full px-4 py-3 bg-neutral-100 border border-neutral-200 rounded-md placeholder-neutral-500 text-primary-900 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-150 ease-in-out sm:text-sm pr-10"
-                placeholder={t('login.passwordLabel')}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-primary-600 focus:outline-none"
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
-                ) : (
-                  <EyeIcon className="h-5 w-5" />
-                )}
-              </button>
-            </div>
+          <div className="relative">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              required
+              className="wood-input w-full px-3 py-2 border border-wood-brown-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-wood-brown-500 focus:border-wood-brown-500 pr-10"
+              placeholder={t('login.passwordPlaceholder', 'Enter your password')}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-wood-neutral-500 hover:text-wood-brown-600 focus:outline-none"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              className="h-4 w-4 accent-primary-500 border-neutral-300 rounded focus:ring-primary-500"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label htmlFor="remember-me" className="ml-2 block text-sm text-primary-700">
-              {t('login.rememberMe')}
-            </label>
-          </div>
-
-          <div className="text-sm">
-            <Link to="/forgot-password" className="font-medium text-primary-500 hover:text-primary-600">
-              {t('login.forgotPassword')}
-            </Link>
-          </div>
+        <div className="flex items-center">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            className="h-4 w-4 text-wood-brown-600 border-wood-brown-300 rounded focus:ring-wood-brown-500"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+          />
+          <label htmlFor="remember-me" className="ml-2 block text-sm text-wood-neutral-600">
+            {t('login.rememberMe', 'Remember me')}
+          </label>
         </div>
 
         {(error || authError) && (
-          <div className="text-error text-sm">
-            {error || authError}
+          <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+            <p className="text-sm text-red-700">{error || authError}</p>
           </div>
         )}
 
-        <div className="pt-2">
+        <div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-150 ease-in-out disabled:opacity-50"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-wood-brown-600 hover:bg-wood-brown-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wood-brown-500 transition-colors"
           >
-            {loading ? t('login.signingIn') : t('login.signIn')}
+            {loading ? 
+              t('login.signingIn', 'Signing in...') : 
+              t('login.signIn', 'Sign In')
+            }
           </button>
         </div>
         
-        <div className="relative mt-6">
+        <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-neutral-200"></div>
+            <div className="w-full border-t border-wood-neutral-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-neutral-500">
-              {t('login.orSignInWith')}
+            <span className="px-2 bg-white text-wood-neutral-500">
+              {t('login.orSignInWith', 'Or sign in with')}
             </span>
           </div>
         </div>
@@ -182,7 +179,7 @@ const Login: React.FC = () => {
         <div>
           <button
             type="button"
-            className="w-full flex justify-center items-center py-3 px-4 border border-neutral-300 rounded-md shadow-sm text-sm font-medium text-primary-900 bg-white hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-150 ease-in-out"
+            className="w-full flex justify-center items-center py-2 px-4 border border-wood-neutral-300 rounded-md shadow-sm bg-white text-sm font-medium text-wood-neutral-700 hover:bg-wood-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wood-brown-500 transition-colors"
           >
             <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
               <path
@@ -202,15 +199,15 @@ const Login: React.FC = () => {
                 fill="#EA4335"
               />
             </svg>
-            {t('login.signInWithGoogle')}
+            {t('login.signInWithGoogle', 'Sign in with Google')}
           </button>
         </div>
       </form>
       
-      <div className="text-center text-sm">
-        <span className="text-neutral-500">{t('login.noAccount')}</span>{' '}
-        <Link to="/register" className="font-medium text-primary-500 hover:text-primary-600">
-          {t('login.signUp')}
+      <div className="text-center mt-6">
+        <span className="text-wood-neutral-600">{t('login.noAccount', "Don't have an account?")}</span>{' '}
+        <Link to="/register" className="text-wood-brown-600 hover:text-wood-brown-800 font-medium">
+          {t('login.signUp', 'Sign up')}
         </Link>
       </div>
     </div>

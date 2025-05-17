@@ -1,0 +1,603 @@
+/* Wood Theme - Natural and Rustic Design */
+
+:root {
+  /* Enhanced Wood Color Palette */
+  --wood-mahogany: #5d2906;
+  --wood-oak: #9b7653;
+  --wood-walnut: #773f1a;
+  --wood-pine: #d9a566;
+  --wood-cherry: #722f37;
+  --wood-cedar: #8b4513;
+
+  /* Woody Color Palette - Enhanced */
+  --wood-brown-100: #fbf8f2;
+  --wood-brown-200: #f2e8d5;
+  --wood-brown-300: #e6d2b3;
+  --wood-brown-400: #d5ba8f;
+  --wood-brown-500: #c5a66b;
+  --wood-brown-600: #a47b58;
+  --wood-brown-700: #8c6545;
+  --wood-brown-800: #735234;
+  --wood-brown-900: #5a3d23;
+  
+  /* Accent Colors */
+  --wood-green-500: #6f8e5c;
+  --wood-green-600: #5a7a46;
+  --wood-red-500: #a35638;
+  --wood-red-600: #8c4a30;
+  --wood-blue-500: #4a6da7;
+  --wood-blue-600: #3a5b8c;
+  --wood-gold-500: #d4af37;
+  --wood-gold-600: #b8860b;
+  
+  /* Neutral Colors */
+  --wood-neutral-50: #fefcf8;
+  --wood-neutral-100: #f7f3eb;
+  --wood-neutral-200: #ede7d8;
+  --wood-neutral-300: #dfd5c3;
+  --wood-neutral-400: #c3b8a5;
+  --wood-neutral-500: #a99e8b;
+  --wood-neutral-600: #8c816e;
+  --wood-neutral-700: #706857;
+  --wood-neutral-800: #5a5347;
+  --wood-neutral-900: #423e36;
+  
+  /* Shadows with Woody Feel */
+  --wood-shadow-sm: 0 2px 4px rgba(90, 61, 35, 0.05);
+  --wood-shadow: 0 4px 8px rgba(90, 61, 35, 0.1);
+  --wood-shadow-md: 0 6px 12px rgba(90, 61, 35, 0.12);
+  --wood-shadow-lg: 0 10px 20px rgba(90, 61, 35, 0.15);
+  --wood-shadow-inner: inset 0 2px 4px rgba(90, 61, 35, 0.08);
+  
+  /* Border */
+  --wood-border-radius: 0.375rem;
+  --wood-border-radius-lg: 0.75rem;
+  
+  /* Animation */
+  --wood-transition: all 0.3s ease;
+
+  /* Wood theme color palette */
+  --wood-neutral-50: #f9f7f4;
+  --wood-neutral-100: #f3eee7;
+  --wood-neutral-200: #e6dfd4;
+  --wood-neutral-300: #d9cfc0;
+  --wood-neutral-400: #c1b4a1;
+  --wood-neutral-500: #a99881;
+  --wood-neutral-600: #8c7c65;
+  --wood-neutral-700: #73664f;
+  --wood-neutral-800: #5e523e;
+  --wood-neutral-900: #4c4233;
+  
+  /* Wood brown palette */
+  --wood-brown-50: #fcf9f6;
+  --wood-brown-100: #f7f0e8;
+  --wood-brown-200: #ece0d1;
+  --wood-brown-300: #e1cdb2;
+  --wood-brown-400: #d4b58e;
+  --wood-brown-500: #c69c6d;
+  --wood-brown-600: #b6834d;
+  --wood-brown-700: #a46e3e;
+  --wood-brown-800: #835630;
+  --wood-brown-900: #6d442c;
+
+  /* Other theme colors */
+  --wood-red-500: rgb(216, 105, 94);  
+  --wood-red-600: rgb(197, 66, 54);
+  --wood-blue-500: rgb(79, 129, 189);
+  --wood-blue-600: rgb(59, 109, 169);
+  --wood-green-500: rgb(110, 142, 92);
+  --wood-green-600: rgb(86, 118, 68);
+  --wood-gold-600: rgb(214, 174, 55);
+}
+
+/* Full Page Background */
+body {
+  background-color: var(--wood-brown-200);
+  /* Enhanced wood grain pattern for better texture */
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.07'%3E%3Cpath d='M0 0h20v40H0V0zm40 40h20v40H40V40zm40-40h20v40H80V0zm40 40h20v40h-20V40zm0-40h20v40h-20V0zM0 80h20v40H0V80zm40 0h20v40H40V80zm40 0h20v40H80V80zm40 0h20v40h-20V80zm-60-20h20v20H60V60zM20 60h20v20H20V60zm-20 0h20v20H0V60zm80 0h20v20H80V60zm20 0h20v20h-20V60z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: var(--wood-neutral-900);
+  position: relative;
+}
+
+/* Enhanced Wood Frame Effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border: 12px solid transparent;
+  border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,100 L0,100 L0,0 Z' fill='none' stroke='%23a47b58' stroke-width='20' stroke-dasharray='10,5' stroke-linecap='round'/%3E%3C/svg%3E");
+  border-image-slice: 20;
+  border-image-width: 20px;
+  opacity: 0.5;
+  z-index: 9999;
+}
+
+/* Welcome Banner */
+.wood-welcome-banner {
+  background-color: var(--wood-brown-600);
+  color: var(--wood-brown-100);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--wood-border-radius-lg);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--wood-shadow-md);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 2px solid var(--wood-brown-400);
+  max-width: 500px;
+  width: 100%;
+  background-image: linear-gradient(to bottom, var(--wood-brown-600), var(--wood-brown-700));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add carved wood effect to welcome banner */
+.wood-welcome-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L20,0 L20,20 L0,20 L0,0 Z M1,1 L19,1 L19,19 L1,19 L1,1 Z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* Company name title */
+.wood-company-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--wood-brown-800);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+  position: relative;
+  display: inline-block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Add decorative wooden bracket around the title */
+.wood-company-title::before,
+.wood-company-title::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: var(--wood-brown-600);
+  border-radius: 2px;
+}
+
+.wood-company-title::before {
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wood-company-title::after {
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Company tagline */
+.wood-company-tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: var(--wood-brown-700);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+/* Login Page Wood Theme Classes */
+
+/* Main Container */
+.wood-container {
+  background-color: var(--wood-neutral-50);
+  color: var(--wood-neutral-900);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 2rem;
+  border-radius: var(--wood-border-radius-lg);
+  box-shadow: var(--wood-shadow-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--wood-neutral-200);
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Enhanced wood grain texture */
+.wood-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a47b58' fill-opacity='0.06'%3E%3Cpath d='M0,0 C20,10 40,10 60,0 C80,-10 100,10 100,30 C100,50 80,80 60,100 C40,80 20,90 0,100 C-20,110 -20,70 0,50 C20,30 0,20 0,0 Z' transform='translate(0, 0) scale(1, 1)' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Add a decorative wooden corner frame to the container */
+.wood-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L15,0 C15,0 20,0 20,5 L20,15 L0,15 L0,0 Z' fill='%23a47b58' fill-opacity='0.1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,0 L25,0 C25,0 20,0 20,5 L20,15 L40,15 L40,0 Z' fill='%23a47b58' fill-opacity='0.1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 L15,40 C15,40 20,40 20,35 L20,25 L0,25 L0,40 Z' fill='%23a47b58' fill-opacity='0.1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,40 L25,40 C25,40 20,40 20,35 L20,25 L40,25 L40,40 Z' fill='%23a47b58' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-position: top left, top right, bottom left, bottom right;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Content container */
+.wood-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo style */
+.wood-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--wood-blue-600);
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.75rem;
+  background-color: var(--wood-neutral-100);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  border: 2px solid var(--wood-blue-500);
+  box-shadow: var(--wood-shadow-sm);
+}
+
+/* Heading styles */
+.wood-heading {
+  color: var(--wood-brown-800);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+/* Enhanced decorative underline */
+.wood-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 40px;
+  background: linear-gradient(to right, var(--wood-brown-600), var(--wood-brown-400));
+  border-radius: 3px;
+}
+
+/* Input fields */
+.wood-input {
+  background-color: var(--wood-neutral-100);
+  border: 1px solid var(--wood-neutral-300);
+  border-radius: var(--wood-border-radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--wood-neutral-900);
+  transition: var(--wood-transition);
+  width: 100%;
+  box-shadow: var(--wood-shadow-inner);
+}
+
+.wood-input:focus {
+  border-color: var(--wood-brown-500);
+  box-shadow: 0 0 0 3px rgba(164, 123, 88, 0.15);
+  outline: none;
+}
+
+.wood-input-label {
+  color: var(--wood-neutral-800);
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  position: relative;
+  padding-left: 12px;
+}
+
+/* Add subtle wooden accent to labels */
+.wood-input-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--wood-brown-500);
+}
+
+/* Buttons */
+.wood-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: var(--wood-border-radius);
+  transition: var(--wood-transition);
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid transparent;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced wood grain button effect */
+.wood-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,10 C70,15 30,15 0,10 L0,0 Z' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wood-btn-primary {
+  background-color: var(--wood-brown-600);
+  color: white;
+  border-color: var(--wood-brown-700);
+  background-image: linear-gradient(to bottom, var(--wood-brown-600), var(--wood-brown-700));
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.wood-btn-primary:hover {
+  background-color: var(--wood-brown-700);
+  border-color: var(--wood-brown-800);
+  transform: translateY(-2px);
+  box-shadow: var(--wood-shadow-md);
+  background-image: linear-gradient(to bottom, var(--wood-brown-600), var(--wood-brown-800));
+}
+
+.wood-btn-outline {
+  background-color: var(--wood-neutral-50);
+  color: var(--wood-brown-700);
+  border-color: var(--wood-brown-300);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.wood-btn-outline:hover {
+  background-color: var(--wood-brown-100);
+  border-color: var(--wood-brown-500);
+  transform: translateY(-2px);
+  box-shadow: var(--wood-shadow-sm);
+}
+
+/* Divider */
+.wood-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.wood-divider::before,
+.wood-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--wood-brown-300);
+}
+
+/* Enhanced divider with natural wood pattern */
+.wood-divider::before {
+  margin-right: 0.5rem;
+  background-image: linear-gradient(to right, transparent, var(--wood-brown-300));
+  height: 1px;
+}
+
+.wood-divider::after {
+  margin-left: 0.5rem;
+  background-image: linear-gradient(to left, transparent, var(--wood-brown-300));
+  height: 1px;
+}
+
+.wood-divider-text {
+  padding: 0 1rem;
+  color: var(--wood-neutral-600);
+  font-size: 0.875rem;
+  position: relative;
+}
+
+/* Links */
+.wood-link {
+  color: var(--wood-blue-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--wood-transition);
+  position: relative;
+}
+
+.wood-link:hover {
+  color: var(--wood-blue-500);
+}
+
+/* Add custom underline effect */
+.wood-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.wood-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Checkbox */
+.wood-checkbox {
+  accent-color: var(--wood-brown-600);
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Error message */
+.wood-error {
+  color: var(--wood-red-600);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  background-color: rgba(163, 86, 56, 0.1);
+  border-radius: var(--wood-border-radius);
+  border-left: 3px solid var(--wood-red-600);
+  position: relative;
+}
+
+/* Add a subtle wood grain to error message */
+.wood-error::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a35638' fill-opacity='0.05'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm-40 0h40v40H0V40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+  border-radius: calc(var(--wood-border-radius) - 1px);
+}
+
+/* Helper text */
+.wood-text-muted {
+  color: var(--wood-neutral-600);
+  font-size: 0.875rem;
+}
+
+/* Card-like nested containers */
+.wood-card {
+  background-color: var(--wood-neutral-100);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--wood-brown-200);
+  box-shadow: var(--wood-shadow-sm);
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add wood grain texture to cards */
+.wood-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C10,10 20,10 30,0 C40,-10 50,10 60,0 C70,-10 80,10 90,0 C100,-10 110,10 100,20 C90,30 100,40 90,50 C80,60 90,70 80,80 C70,90 80,100 70,100 C60,100 50,90 40,100 C30,110 20,100 10,100 C0,100 -10,90 0,80 C10,70 0,60 10,50 C20,40 10,30 0,20 C-10,10 0,0 0,0 Z' stroke='%23a47b58' stroke-width='0.5' stroke-opacity='0.05' fill='none' /%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Animation for hover states */
+.wood-hover-lift {
+  transition: var(--wood-transition);
+}
+
+.wood-hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--wood-shadow-md);
+}
+
+/* Footer */
+.wood-footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--wood-neutral-600);
+  font-size: 0.75rem;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+/* Add decorative wooden divider above footer */
+.wood-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--wood-brown-400), transparent);
+}
+
+.wood-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.wood-footer-link {
+  color: var(--wood-blue-600);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.wood-footer-link:hover {
+  text-decoration: underline;
+}
+
+.wood-footer-copyright {
+  font-size: 0.75rem;
+  color: var(--wood-neutral-500);
+} 

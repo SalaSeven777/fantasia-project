@@ -56,6 +56,43 @@ django-react-project/
 - Delivery management
 - Billing and invoicing
 
+## Project Preview
+
+### Authentication
+
+![Authentication Preview](Preview/Authentification.png)
+
+### Admin Interface
+
+Various admin interfaces for system management and monitoring:
+
+- Dashboard with real-time metrics
+- User management
+- System configuration
+- Monitoring tools
+- Report generation
+- Audit logs
+
+### Client Interface
+
+Client-facing e-commerce interface for browsing and purchasing wood products.
+
+### Commercial Module
+
+Tools for the sales team to manage clients, quotes, and orders.
+
+### Warehouse Management
+
+Inventory and stock management interface for warehouse managers.
+
+### Delivery Management
+
+Logistics and delivery tracking system for managing product shipments.
+
+### Billing and Invoicing
+
+Financial tools for invoice generation, payment tracking, and reporting.
+
 ## Prerequisites
 
 - Python 3.8+

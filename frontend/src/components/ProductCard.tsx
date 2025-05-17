@@ -11,6 +11,7 @@ import {
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { Product } from '../types/product.types';
 import { useAppSelector } from '../store/hooks';
+import '../styles/wood-client-theme.css'; // Import the wood client theme
 
 interface ProductCardProps {
   product: Product;
@@ -172,15 +173,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div 
-      className="product-card group relative bg-white rounded-md shadow-sm overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300 mb-8 flex flex-col"
+      className="wood-product-card"
     >
       {/* Product Image */}
-      <div className="product-image-container relative pt-[100%] overflow-hidden bg-white">
-        <Link to={`/products/${product.id}`} className="absolute inset-0">
+      <div className="wood-product-image-container">
+        <Link to={`/products/${product.id}`}>
           <img 
             src={productImageSrc}
             alt={product.name}
-            className="product-image absolute inset-0 w-full h-full object-contain object-center transition-transform duration-500 group-hover:scale-105"
+            className="wood-product-image"
             onError={handleImageError}
           />
         </Link>
@@ -188,18 +189,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {/* Product labels */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {discountPercentage > 0 && (
-            <span className="bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">
+            <span className="wood-product-badge">
               -{discountPercentage}%
             </span>
           )}
           
           {/* Stock status badge */}
           {product.stock_quantity <= 0 ? (
-            <span className="bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">
+            <span className="wood-product-badge bg-red-500">
               Out of Stock
             </span>
           ) : product.stock_quantity <= 5 ? (
-            <span className="bg-amber-500 text-white text-xs font-medium px-2 py-1 rounded">
+            <span className="wood-product-badge bg-amber-500">
               Only {product.stock_quantity} Left
             </span>
           ) : null}
@@ -207,9 +208,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
       
       {/* Product Info */}
-      <div className="p-4 flex-grow flex flex-col">
-        <Link to={`/products/${product.id}`} className="block">
-          <h3 className="text-lg font-medium text-neutral-900 mb-2 line-clamp-2">
+      <div className="wood-product-content">
+        <Link to={`/products/${product.id}`}>
+          <h3 className="wood-product-title">
             {product.name}
           </h3>
         </Link>
@@ -219,22 +220,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-2 flex items-center gap-2">
           {product.sale_price && product.sale_price < product.price ? (
             <>
-              <span className="text-lg font-semibold text-primary-600">
+              <span className="wood-product-price">
                 ${formatPrice(product.sale_price)}
               </span>
-              <span className="text-sm text-neutral-500 line-through">
+              <span className="wood-product-original-price">
                 ${formatPrice(product.price)}
               </span>
             </>
           ) : (
-            <span className="text-lg font-semibold text-primary-600">
+            <span className="wood-product-price">
               ${formatPrice(product.price)}
             </span>
           )}
         </div>
         
         {!compact && (
-          <p className="mt-2 text-sm text-neutral-600 line-clamp-2">
+          <p className="wood-product-description">
             {truncateDescription(product.description || '', 100)}
           </p>
         )}
@@ -243,16 +244,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={handleAddToCart}
             disabled={product.stock_quantity <= 0}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              product.stock_quantity > 0
-                ? 'bg-primary-600 text-white hover:bg-primary-700'
-                : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
-            }`}
+            className="wood-product-button"
           >
             {addedToCart ? (
               <>
                 <CheckIcon className="h-5 w-5" />
-                Added
+                Added to Cart
               </>
             ) : (
               <>
@@ -263,13 +260,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </button>
           
           <button
-            onClick={() => onToggleCompare(product.id)}
-            className={`p-2 rounded-lg border transition-colors ${
-              isSelected
-                ? 'border-primary-600 text-primary-600'
-                : 'border-neutral-300 text-neutral-600 hover:border-primary-600 hover:text-primary-600'
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onToggleCompare(product.id);
+            }}
+            className={`wood-product-button wood-btn-outline p-2 flex-shrink-0 ${
+              isSelected ? 'bg-primary-100 border-primary-600' : ''
             }`}
-            title="Compare"
           >
             <ArrowsRightLeftIcon className="h-5 w-5" />
           </button>
