@@ -66,32 +66,48 @@ django-react-project/
 
 Various admin interfaces for system management and monitoring:
 
-- Dashboard with real-time metrics
-- User management
-- System configuration
-- Monitoring tools
-- Report generation
-- Audit logs
+![User Management](Preview/Admin%20Interface/Usermanagement.png)
+![System Configuration](Preview/Admin%20Interface/System%20Configuration.png)
+![Monitoring](Preview/Admin%20Interface/monitoring.png)
+![Logs](Preview/Admin%20Interface/logs.png)
 
 ### Client Interface
 
 Client-facing e-commerce interface for browsing and purchasing wood products.
 
+![Client Interface](Preview/client/SME%20FANTASIA%20-%20Premium%20Wood%20Products%20-%20Personnel%20%E2%80%93%20Microsoft%E2%80%8B%20Edge%202025-05-17%2017-16-38.mp4)
+
 ### Commercial Module
 
 Tools for the sales team to manage clients, quotes, and orders.
+
+![Commercial Dashboard](Preview/Commercial/Commercial%20Dashboard.png)
+![Customer Management](Preview/Commercial/Customer%20Management.png)
+![Management](Preview/Commercial/Management.png)
 
 ### Warehouse Management
 
 Inventory and stock management interface for warehouse managers.
 
+![Products](Preview/Magasin/produits.png)
+![Inventory](Preview/Magasin/invrntory.png)
+![Stock](Preview/Magasin/stock.png)
+![Supply Chain](Preview/Magasin/chain%20suplly.png)
+
 ### Delivery Management
 
 Logistics and delivery tracking system for managing product shipments.
 
+![Deliveries](Preview/Deliveries/Deliveries.png)
+![Delivery Metrics](Preview/Deliveries/Delivery%20Metrics.png)
+![Route Planning](Preview/Deliveries/Route%20Planning.png)
+
 ### Billing and Invoicing
 
 Financial tools for invoice generation, payment tracking, and reporting.
+
+![Billing Dashboard](Preview/facteurisation/Billing%20Dashboard.png)
+![Invoices](Preview/facteurisation/invoices.png)
 
 ## Prerequisites
 
